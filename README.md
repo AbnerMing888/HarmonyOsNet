@@ -49,12 +49,6 @@ hvigorVersion：3.0.2
 
 [HarmonyOS开发：走进静态共享包的依赖与使用](https://juejin.cn/post/7274982412245876776)
 
-#### 2、源码直接使用
-
-直接把net这个module复制到项目中，直接引用即可：
-
-<p><img src="images/harmonyos_module.jpg"></p>
-
 #### 3、查看是否引用成功
 
 无论使用哪种方式进行依赖，最终都会在使用的模块中，生成一个oh_modules文件，并创建源代码文件，有则成功，无则失败，如下：
