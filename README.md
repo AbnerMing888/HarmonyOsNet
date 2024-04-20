@@ -1,20 +1,17 @@
 # HarmonyOsNet
 
-<p align="center" style="font-size:12px;"><img src="images/abner.jpg" width="120px" /><br/>扫一扫，查阅更多技术文章！</p>
-
-### 介绍
-
 **HarmonyOS网络库**，基于http封装而来，简化了请求方式，增加了常见的业务功能，支持同步、异步、装饰器模式，支持多种返回数据类型，Json、对象、数组，支持数据缓存，支持dialog加载，支持控制台请求信息格式化输出……
 
-### 开发环境
+## 开发环境
 
-DevEco Studio 4.0 Beta2,Build Version: 4.0.0.400
+DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.100
 
-Api版本：9
+Api版本：**11**
 
-hvigorVersion：3.0.2
+hvigorVersion：4.2.0
 
-### 主要功能点
+
+## 主要功能点
 
 <p align="center">当前版本：<i><span style="color:#ff0000;">1.0.0</span></i></p>
 
@@ -24,7 +21,6 @@ hvigorVersion：3.0.2
 - [x] **支持全局头参拦截**
 - [x] **支持同步方式请求（get/post/delete/put/options/head/trace/connect）**
 - [x] **支持异步方式请求（get/post/delete/put/options/head/trace/connect）**
-- [x] **支持装饰器方式请求（get/post/delete/put/options/head/trace/connect）**
 - [x] **支持dialog加载**
 - [x] **支持返回Json字符串**
 - [x] **支持返回对象**
@@ -34,28 +30,46 @@ hvigorVersion：3.0.2
 - [x] **支持下载文件**
 - [ ] 数据缓存开发中……
 
-### 快速使用
+## 快速使用
 
-**私服和远程依赖**，由于权限和审核问题，预计需要等到2024年第一季度面向所有开发者，所以，只能使用**本地静态共享包**和**源码**
-两种使用方式，本地静态共享包类似Android中的aar依赖，直接复制到项目中即可。
+目前有多种使用方式，比如远程依赖、本地静态共享包依赖,源码方式依赖，推荐使用**远程依赖**，方便快捷，有最新修改可以及时生效。
 
-#### 1、本地静态共享包har包使用
+### 1、远程依赖方式使用【推荐】
 
-<p>首先，下载har包，<a href="https://github.com/AbnerMing888/HarmonyOsNet/raw/master/net.har">点击下载</a></p>
+方式一：在Terminal窗口中，执行如下命令安装三方包，DevEco Studio会自动在工程的oh-package.json5中自动添加三方包依赖。
+
+**建议：在使用的模块路径下进行执行命令。**
+
+```
+ohpm install @abner/net
+```
+
+方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
+
+```
+"dependencies": { "@abner/net": "^1.0.0"}
+```
+
+<p align="center"><img src="images/net_243_001.png" width="300"></p>
+
+### 2、本地静态共享包har包使用
+
+<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.0.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
-<p><img src="images/harmonyos_har.jpg"></p>
+<p><img src="images/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
-<p>需要注意，<strong>@app/net</strong>，是用来区分目录的，可以自己定义，比如@aa/bb等，关于静态共享包的创建和使用，请查看如下我的介绍，这里就不过多介绍</p>
+<p>需要注意，<strong>@abner/net</strong>，是用来区分目录的，可以自己定义，比如@aa/bb等，关于静态共享包的创建和使用，请查看如下我的介绍，这里就不过多介绍</p>
 
 [HarmonyOS开发：走进静态共享包的依赖与使用](https://juejin.cn/post/7274982412245876776)
 
-#### 3、查看是否引用成功
+### 3、查看是否引用成功
 
 无论使用哪种方式进行依赖，最终都会在使用的模块中，生成一个oh_modules文件，并创建源代码文件，有则成功，无则失败，如下：
 
-<p align="center"><img src="images/harmonyos_npm.jpg" width="300"></p>
+<p align="center"><img src="images/net_243_003.png" width="300"></p>
 
-### 全局初始化
+
+## 全局初始化
 
 推荐在AbilityStage进行初始化，初始化一次即可，初始化参数可根据项目需要进行选择性使用。
 
@@ -67,43 +81,78 @@ Net.getInstance().init({
   netErrorInterceptor: new MyNetErrorInterceptor(), //设置全局错误拦截,需要自行创建,可在这里进行错误处理
   netHeaderInterceptor: new MyNetHeaderInterceptor(), //设置全局头拦截器,需要自行创建
   header: {}, //头参数
-  resultTag: []//接口返回数据参数，比如data,items等等
+  resultTag: [],//接口返回数据data层参数，比如data,items等等
+  plugin:[]//插件，类似于拦截器
 })
 ```
 
-#### 初始化属性介绍
+### 初始化属性介绍
 
 初始化属性，根据自己需要选择性使用。
 
-| 属性                   | 类型                    | 概述                                |
-|----------------------|-----------------------|-----------------------------------|
-| baseUrl              | string                | 一般标记为统一的请求前缀，也就是域名                |
-| connectTimeout       | number                | 连接超时，默认10秒                        |
-| readTimeout          | number                | 读取超时，默认10秒                        |
-| netErrorInterceptor  | INetErrorInterceptor  | 全局错误拦截器，需继承INetErrorInterceptor   |
-| netHeaderInterceptor | INetHeaderInterceptor | 全局请求头拦截器，需继承INetHeaderInterceptor |
-| header               | Object                | 全局统一的公共头参数                        |
-| resultTag            | Array<string>         | 接口返回数据参数，比如data,items等等           |
+| 属性                   | 类型                               | 概述                                             |
+|----------------------|----------------------------------|------------------------------------------------|
+| baseUrl              | string                           | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
+| connectTimeout       | number                           | 可选参数，连接超时，默认10秒                                |
+| readTimeout          | number                           | 可选参数，读取超时，默认10秒                                |
+| netErrorInterceptor  | INetErrorInterceptor             | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
+| netHeaderInterceptor | INetHeaderInterceptor            | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
+| header               | Object/Record\<string, Object\>  | 可选参数，全局统一的公共头参数                                |
+| resultTag            | Array<string>                    | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
+| plugin               | Array<BaseNetPlugin>             | 网络插件，类似于拦截器                                    |
 
-#### 设置请求头拦截
+### 设置请求头拦截
 
 关于全局头参数传递，可以通过以上的header参数或者在请求头拦截里均可。
 
-名字自定义，实现INetHeaderInterceptor接口，可在netHeader方法里打印请求头或者追加请求头。
+请求拦截器，主要是以插件形式plugin进行实现，支持多个插件形式，也就是多个拦截器形式，可以用plugin参数传递。
+也可以使用addNetPlugins方法形式。
 
-```typescript
+#### 定义拦截器
 
-import { HttpHeaderOptions, NetHeaderInterceptor } from '@app/net'
-
-class MyNetHeaderInterceptor implements NetHeaderInterceptor {
-  getHeader(options: HttpHeaderOptions): Promise<Object> {
-    //可以进行接口签名，传入头参数
-    return null
+```javascript
+export class CustomNetPlugin extends BaseNetPlugin {
+   //发送Request 请求的所有信息
+  willSendRequest(request: NetRequest): void {
+    
   }
+    //收到Response响应，响应的所有信息
+  didReceive(result: http.HttpResponse): void {
+    
+  }
+
+    // 请求之前拦截请求 可以做很多操作，比如添加头参，加密等等
+  prepareRequest(request: NetRequest): Promise<NetRequest> {
+    return new Promise((resolve: Function) => {
+     
+    });
+  }
+    //在这里可以修改Response信息
+    processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
+        return new Promise((resolve: Function) => {
+    });
+    }
 }
 ```
 
-#### 设置全局错误拦截器
+#### 注入拦截器
+
+初始化注入
+
+```javascript
+Net.getInstance().init({
+      baseUrl: "https://www.vipandroid.cn",
+      resultTag: ["data", "items"],
+      plugin:[new CustomNetPlugin()]
+    })
+```
+方法注入
+
+```javascript
+Net.getInstance().addNetPlugins(new CustomNetPlugin())
+```
+
+### 设置全局错误拦截器
 
 名字自定义，实现INetErrorInterceptor接口，可在httpError方法里进行全局的错误处理，比如统一跳转，统一提示等。
 
@@ -114,16 +163,15 @@ import { INetErrorInterceptor } from '@app/net/src/main/ets/interceptor/INetErro
 export class MyNetErrorInterceptor implements INetErrorInterceptor {
   httpError(error: NetError) {
     //这里进行拦截错误信息
-
   }
 }
 ```
 
-#### NetError对象
+### NetError对象
 
 可通过如下方法获取错误code和错误描述信息。
 
-```
+```javascript
 /*
    * 返回code
    * */
@@ -140,14 +188,14 @@ getMessage():string{
 
 ```
 
-### 异步请求
+## 异步请求
 
-#### 1、请求说明
+### 1、请求说明
 
 为了方便数据的针对性返回，目前异步请求提供了三种请求方法，在实际的
 开发中，大家可以针对需要，选择性使用。
 
-##### request方法
+#### request方法
 
 ```typescript
 Net.get("url").request<TestModel>((data) => {
@@ -235,7 +283,7 @@ Net.get("")
   })
 ```
 
-##### requestString方法
+#### requestString方法
 
 requestString就比较简单，就是普通的返回请求回来的json字符串。
 
@@ -245,7 +293,7 @@ Net.get("url").requestString((data) => {
 })
 ```
 
-##### requestObject方法
+#### requestObject方法
 
 requestObject方法也是获取对象，和request不同的是，它不用设置返回参数，因为它是返回的整个json对应的对象，
 也就是包含了code，message等字段。
@@ -274,7 +322,7 @@ Net.get("url").requestObject<ApiResult<TestModel>>((data) => {
 })
 ```
 
-##### 回调函数
+#### 回调函数
 
 回调函数有两个，一个成功一个失败，成功回调必调用，失败可选择性调用。
 
@@ -296,7 +344,7 @@ Net.get("url").request<TestModel>((data) => {
 })
 ```
 
-#### 2、get请求
+### 2、get请求
 
 ```typescript
  Net.get("url").request<TestModel>((data) => {
@@ -304,7 +352,7 @@ Net.get("url").request<TestModel>((data) => {
 })
 ```
 
-#### 3、post请求
+### 3、post请求
 
 ```typescript
 Net.post("url").request<TestModel>((data) => {
@@ -312,7 +360,7 @@ Net.post("url").request<TestModel>((data) => {
 })
 ```
 
-#### 4、delete请求
+### 4、delete请求
 
 ```typescript
  Net.delete("url").request<TestModel>((data) => {
@@ -320,7 +368,7 @@ Net.post("url").request<TestModel>((data) => {
 })
 ```
 
-#### 5、put请求
+### 5、put请求
 
 ```typescript
 Net.put("url").request<TestModel>((data) => {
@@ -328,7 +376,7 @@ Net.put("url").request<TestModel>((data) => {
 })
 ```
 
-#### 6、其他请求方式
+### 6、其他请求方式
 
 除了常见的请求之外，根据系统api所提供的，也封装了如下的请求方式,只需要更改请求方式即可，比如Net.options
 
@@ -339,7 +387,7 @@ TRACE
 CONNECT
 ```
 
-#### 7、各个方法调用
+### 7、各个方法调用
 
 | 方法                        | 类型                            | 概述                      |
 |---------------------------|-------------------------------|-------------------------|
@@ -352,9 +400,11 @@ CONNECT
 | setUsingCache             | boolean                       | 使用缓存,默认为true            |
 | setPriority               | number                        | 设置优先级 默认为1              |
 | setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定          |
-| setResultTag              | Array<string>                 | 接口返回数据参数，比如data,items等等 |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等 |
 | setContext                | Context                       | 设置上下文,用于下载文件            |
 | setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局  |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                 |
 
 代码调用如下：
 
@@ -377,7 +427,7 @@ Net.get("url")
   })
 ```
 
-### 同步请求
+## 同步请求
 
 同步请求需要注意，需要await关键字和async关键字结合使用。
 
@@ -387,11 +437,11 @@ private async getTestModel(){
 }
 ```
 
-#### 1、请求说明
+### 1、请求说明
 
 同步请求和异步请求一样，也是有三种方式，是通过参数的形式，默认直接返回data层数据。
 
-##### 返回data层数据
+#### 返回data层数据
 
 和异步种的request方法类似，只返回json种的data层对象数据，不会返回code等字段。
 
@@ -402,7 +452,7 @@ private async getTestModel(){
 }
 ```
 
-##### 返回Json对象
+#### 返回Json对象
 
 和异步种的requestObject方法类似，会返回整个json对象，包含code等字段。
 
@@ -413,7 +463,7 @@ private async getTestModel(){
 }
 ```
 
-##### 返回Json字符串
+#### 返回Json字符串
 
 和异步种的requestString方法类似。
 
@@ -424,7 +474,7 @@ private async getData(){
 }
 ```
 
-##### 返回错误
+#### 返回错误
 
 异步方式有回调错误，同步方式如果发生错误，也会直接返回错误，结构如下：
 
@@ -437,7 +487,7 @@ private async getData(){
 
 除了以上的错误捕获之外，你也可以全局异常捕获，
 
-#### 2、get请求
+### 2、get请求
 
 ```typescript
 
@@ -445,7 +495,7 @@ const data = await Net.get("url").returnData<TestModel>()
 
 ```
 
-#### 3、post请求
+### 3、post请求
 
 ```typescript
 
@@ -453,7 +503,7 @@ const data = await Net.post("url").returnData<TestModel>()
 
 ```
 
-#### 4、delete请求
+### 4、delete请求
 
 ```typescript
 
@@ -461,7 +511,7 @@ const data = await Net.delete("url").returnData<TestModel>()
 
 ```
 
-#### 5、put请求
+### 5、put请求
 
 ```typescript
 
@@ -469,7 +519,7 @@ const data = await Net.put("url").returnData<TestModel>()
 
 ```
 
-#### 6、其他请求方式
+### 6、其他请求方式
 
 除了常见的请求之外，根据系统api所提供的，也封装了如下的请求方式,只需要更改请求方式即可，比如Net.options
 
@@ -480,7 +530,7 @@ TRACE
 CONNECT
 ```
 
-#### 7、各个方法调用
+### 7、各个方法调用
 
 | 方法                        | 类型                            | 概述                      |
 |---------------------------|-------------------------------|-------------------------|
@@ -493,9 +543,12 @@ CONNECT
 | setUsingCache             | boolean                       | 使用缓存,默认为true            |
 | setPriority               | number                        | 设置优先级 默认为1              |
 | setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定          |
-| setResultTag              | Array<string>                 | 接口返回数据参数，比如data,items等等 |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等 |
 | setContext                | Context                       | 设置上下文,用于下载文件            |
 | setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局  |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                 |
 
 代码调用如下：
 
@@ -517,157 +570,9 @@ const data = await Net.get("url")
 //data为 返回的 TestModel对象
 ```
 
-### 装饰器请求
+## 上传下载
 
-网络库允许使用装饰器的方式发起请求，也就是通过注解的方式，目前采取的是装饰器方法的形式。
-
-#### 1、请求说明
-
-装饰器和同步异步有所区别，只返回两种数据类型，一种是json字符串，一种是json对象，暂时不提供返回data层数据。
-在使用的时候，您可以单独创建工具类或者ViewModel或者直接使用，都可以。
-
-##### 返回json字符串
-
-```typescript
-@GET("url")
-private getData():Promise<string> {
-  return null
-}
-```
-
-##### 返回json对象
-
-```typescript
-@GET("url")
-private getData():Promise<TestModel> {
-  return null
-}
-```
-
-#### 2、get请求
-
-```typescript
-@GET("url")
-private getData():Promise<TestModel> {
-  return null
-}
-```
-
-#### 3、post请求
-
-```typescript
-@POST("url")
-private getData():Promise<TestModel> {
-  return null
-}
-```
-
-#### 4、delete请求
-
-```typescript
-@DELETE("url")
-private getData():Promise<TestModel> {
-  return null
-}
-```
-
-#### 5、put请求
-
-```typescript
-@PUT("url")
-private getData():Promise<TestModel> {
-  return null
-}
-```
-
-#### 6、其他请求方式
-
-除了常见的请求之外，根据系统api所提供的，也封装了如下的请求方式,只需要更改请求方式即可，比如@OPTIONS
-
-```
-OPTIONS
-HEAD
-TRACE
-CONNECT
-```
-
-当然，大家也可以使用统一的NET装饰器，只不过需要自己设置请求方法，代码如下：
-
-```typescript
-@NET("url", { method: http.RequestMethod.POST })
-private getData():Promise<string> {
-  return null
-}
-```
-
-#### 7、装饰器参数传递
-
-##### 直接参数传递
-
-直接参数，在调用装饰器请求时，后面添加即可,一般针对固定参数。
-
-```typescript
-@GET("url", {
-  baseUrl: "", //baseUrl
-  header: {}, //头参数
-  params: {}, //入参
-  connectTimeout: 1000, //连接超时
-  readTimeout: 1000, //读取超时
-  isReturnJson: true//默认false 返回Json字符串,默认返回json对象
-})
-private getData():Promise<string> {
-  return null
-}
-```
-
-##### 动态参数传递
-
-动态参数适合参数可变的情况下传递，比如分页等情况。
-
-```typescript
-@GET("url")
-private getData(data? : HttpOptions):Promise<string> {
-  return null
-}
-```
-
-调用时传递
-
-```typescript
-private async doHttp(){
-  const data = await this.getData({
-    baseUrl: "", //baseUrl
-    header: {}, //头参数
-    params: {}, //入参
-    connectTimeout: 1000, //连接超时
-    readTimeout: 1000, //读取超时
-    isReturnJson: true//默认false 返回Json字符串,默认返回json对象
-  })
-}
-```
-
-##### 装饰器参数传递
-
-使用DATA装饰器，DATA必须在上！
-
-```typescript
-@DATA({
-  baseUrl: "", //baseUrl
-  header: {}, //头参数
-  params: {}, //入参
-  connectTimeout: 1000, //连接超时
-  readTimeout: 1000, //读取超时
-  isReturnJson: true//默认false 返回Json字符串,默认返回json对象
-})
-@GET("url")
-private getData():Promise<string> {
-  return null
-}
-```
-
-### 上传下载
-
-#### 1、上传文件
+### 1、上传文件
 
 ```typescript
 Net.uploadFile("")//上传的地址
@@ -683,7 +588,7 @@ Net.uploadFile("")//上传的地址
   })
 ```
 
-##### 方法介绍
+#### 方法介绍
 
 | 方法             | 类型     | 概述                                                                 |
 |----------------|--------|--------------------------------------------------------------------|
@@ -693,7 +598,7 @@ Net.uploadFile("")//上传的地址
 | setProgress    | 回调函数   | 监听进度，receivedSize下载大小， totalSize总大小                                |
 | request        | 无      | 请求上传，data类型为UploadTaskState，有三种状态：START(开始),COMPLETE(完成),ERROR(错误) |
 
-##### 其他方法
+#### 其他方法
 
 删除上传进度监听
 
@@ -713,7 +618,7 @@ uploadRequest.deleteUploadTask((result) => {
 })
 ```
 
-#### 2、下载文件
+### 2、下载文件
 
 ```typescript
 Net.downLoadFile("http://10.47.24.237:8888/harmony/log.har")
@@ -729,7 +634,7 @@ Net.downLoadFile("http://10.47.24.237:8888/harmony/log.har")
   })
 ```
 
-##### 方法介绍
+#### 方法介绍
 
 | 方法           | 类型      | 概述                                                                              |
 |--------------|---------|---------------------------------------------------------------------------------|
@@ -739,7 +644,7 @@ Net.downLoadFile("http://10.47.24.237:8888/harmony/log.har")
 | setProgress  | 回调函数    | 监听进度，receivedSize下载大小， totalSize总大小                                             |
 | request      | 无       | 请求下载，data类型为DownloadTaskState，有四种状态：START(开始),COMPLETE(完成),PAUSE(暂停),REMOVE(结束) |
 
-##### 其他方法
+#### 其他方法
 
 移除下载的任务
 
@@ -783,15 +688,15 @@ downLoadRequest.restoreDownloadTask((result) => {
 downLoadRequest.removeProgressCallback()
 ```
 
-### Dialog加载
+## Dialog加载
 
 <p align="center"><img src="images/harmonyos_dialog.png" width="200px" /></p>
 
-#### 1、定义dialog控制器
+### 1、定义dialog控制器
 
 NetLoadingDialog是net包中自带的，菊花状弹窗，如果和实际业务不一致，可以更换。
 
-```
+```javascript
 private mCustomDialogController = new CustomDialogController({
   builder: NetLoadingDialog({
     loadingText: '请等待...'
@@ -801,7 +706,7 @@ private mCustomDialogController = new CustomDialogController({
 })
 ```
 
-#### 2、调用传递控制器方法
+### 2、调用传递控制器方法
 
 此方法会自动显示和隐藏dialog，如果觉得不合适，大家可以自己定义即可。
 
@@ -809,21 +714,45 @@ private mCustomDialogController = new CustomDialogController({
 setCustomDialogController(this.mCustomDialogController)
 ```
 
-### 注意事项
+#### 常见问题
 
-目前仍然在持续优化更新中，更多功能，大家敬请期待，有任何问题，大家都可以提issues。
+如果你打算下载源码使用，并且你的开发环境比较低，会造成，运行工程失败问题，常见错误如下，是因为开发环境不一致造成。
 
-### 欢迎关注作者
+<p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/refresh/harmonyos_error.png" width="300px" /></p>
 
-微信搜索【App开发干货铺】，或扫描下面二维码关注，查阅更多技术文章！
+**您可以选择解决问题，解决方式如下：**
 
-<img src="images/abner.jpg" width="200px" />
+[解决DevEco Studio低版本导入高版本项目运行失败问题](https://juejin.cn/post/7280746811328692258)
 
-### 赞赏作者
+您也可以不运行，直接进行使用，完全没有问题。
 
-看在作者这么努力的份上，微信赞赏随意，给个鼓励好不好~
+## 关注公众号
 
-<img src="images/wx_code.jpg" width="200px" />
+鸿蒙先驱者，只分享精华的鸿蒙或者移动端技术文章，可扫码关注
+
+<p><img src="images/abner.jpg" width="150px" /></p>
+
+[鸿蒙精华技术文章列表](https://juejin.cn/column/7269566781248389178)
+
+## 一对一指导【收费】
+
+每个人的时间都是宝贵的，做为开发者的我，已经做到了技术上的免费开源，但仍然有很多问题无法做到及时处理。
+也考虑到，鸿蒙是一个新的系统，大家在使用上会遇到各种各样的问题，也为了能够及时的解决及回复问题，大家可以付费进行一对一指导。
+
+<p><img src="images/harmony_vip.png" width="150px" /></p>
+
+**重要信息：一定要在备注您的微信号，我会主动加您！切记！切记！！切记！！！**
+
+**一杯饮料的钱，您可以获取权益如下**
+
+- 1、针对网络库使用1对1辅导使用，并跟踪相关问题排查。
+- 2、针对我的所有鸿蒙开源库，1对1辅导使用，并跟踪相关问题排查。
+- 3、根据时间安排，您的任何鸿蒙项目所遇到的问题，进行协助排查解决。
+- 4、未来鸿蒙开源库，先遣体验。
+- 5、未来鸿蒙脚手架，首批次体验使用。
+
+<p>可以通过文字、语音、视频、远程辅助，让您的鸿蒙道路更加顺畅！</p>
+
 
 ### License
 
@@ -842,8 +771,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-
-
-
 
