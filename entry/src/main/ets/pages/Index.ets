@@ -1,4 +1,5 @@
 import { Net } from '@abner/net';
+import { ItemBean } from './ItemsBean';
 
 @Entry
 @Component
@@ -12,18 +13,26 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            Net.get("http://10.47.26.83:8088/json/json.txt")
-              .request<boolean>((data) => {
+            Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")
+              .setParams({ "index_type": -1, "size": 1 })
+              .requestString((data) => {
                 console.log("====" + data)
+              }, (error) => {
+                console.log("====" + JSON.stringify(error))
               })
             // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
             //   .requestObject<ItemsBean>((data) => {
-            //     console.log("========" + data.message)
+            //     console.log("========" + data.items?.length)
+            //   },(error)=>{
+            //     console.log("====" + JSON.stringify(error))
             //   })
             // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
-            //   .request<Array<ItemsBean2>>((data) => {
-            //     console.log("========="+data.length)
+            //   .request<ItemBean[]>((data) => {
+            //     console.log("=========" + data.length)
+            //   },(error)=>{
+            //     console.log("====" + JSON.stringify(error))
             //   })
+
             // Net.get("cert/AbnerGetIndexBanner.ph")
             //   .requestString((data)=>{
             //     console.log("=====" + data)
@@ -40,13 +49,13 @@ struct Index {
     .height('100%')
   }
 
-  async doHttp() {
-    // let data = await Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
-    //   .setConversion(new ItemsBean())
-    //   .returnData<ItemsBean>(ReturnDataType.OBJECT)
-    //
-    //
-    // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
+  private async doHttp() {
+    let result =
+      await Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")// .returnData<ItemsBean>(ReturnDataType.OBJECT)
+        .setParams({ "index_type": -1, "size": 1 })
+        .returnData<ItemBean[]>()
 
+    console.log("=======" + JSON.stringify(result))
   }
 }
+

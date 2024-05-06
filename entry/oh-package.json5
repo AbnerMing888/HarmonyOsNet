@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@abner/net": "file:libs/net-1.0.0.har"
+    "@abner/net": "file:libs/net-1.0.1.har"
   }
 }
 

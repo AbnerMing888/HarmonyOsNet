@@ -1,5 +1,9 @@
 export class ItemsBean {
   status?: number
   message?: string
-  data?: boolean
+  items?: ItemBean[]
+}
+
+export class ItemBean {
+  title?: string
 }

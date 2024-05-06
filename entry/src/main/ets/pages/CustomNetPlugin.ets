@@ -21,5 +21,6 @@ export class CustomNetPlugin extends BaseNetPlugin {
   processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
     return new Promise((resolve: Function) => {
     });
+
   }
 }

@@ -10,10 +10,9 @@ Api版本：**11**
 
 hvigorVersion：4.2.0
 
-
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.0</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.1</span></i></p>
 
 - [x] **支持全局初始化**
 - [x] **支持统一的BaseUrl**
@@ -28,6 +27,7 @@ hvigorVersion：4.2.0
 - [x] **支持返回data一层数据**
 - [x] **支持上传文件**
 - [x] **支持下载文件**
+- [x] **支持全局状态码统一设置，业务层可省去判断**
 - [ ] 数据缓存开发中……
 
 ## 快速使用
@@ -47,14 +47,14 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.0.0"}
+"dependencies": { "@abner/net": "^1.0.1"}
 ```
 
 <p align="center"><img src="images/net_243_001.png" width="300"></p>
 
-### 2、本地静态共享包har包使用
+### 2、本地静态共享包har包使用【不推荐】
 
-<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.0.har">点击下载</a></p>
+<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.1.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
 <p><img src="images/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
@@ -90,16 +90,18 @@ Net.getInstance().init({
 
 初始化属性，根据自己需要选择性使用。
 
-| 属性                   | 类型                               | 概述                                             |
-|----------------------|----------------------------------|------------------------------------------------|
-| baseUrl              | string                           | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
-| connectTimeout       | number                           | 可选参数，连接超时，默认10秒                                |
-| readTimeout          | number                           | 可选参数，读取超时，默认10秒                                |
-| netErrorInterceptor  | INetErrorInterceptor             | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
-| netHeaderInterceptor | INetHeaderInterceptor            | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
-| header               | Object/Record\<string, Object\>  | 可选参数，全局统一的公共头参数                                |
-| resultTag            | Array<string>                    | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
-| plugin               | Array<BaseNetPlugin>             | 网络插件，类似于拦截器                                    |
+| 属性                   | 类型                              | 概述                                             |
+|----------------------|---------------------------------|------------------------------------------------|
+| baseUrl              | string                          | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
+| connectTimeout       | number                          | 可选参数，连接超时，默认10秒                                |
+| readTimeout          | number                          | 可选参数，读取超时，默认10秒                                |
+| netErrorInterceptor  | INetErrorInterceptor            | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
+| netHeaderInterceptor | INetHeaderInterceptor           | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
+| header               | Object/Record\<string, Object\> | 可选参数，全局统一的公共头参数                                |
+| resultTag            | Array<string>                   | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
+| codeTag              | {}                              | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
+| messageTag           | Array<string>                   | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
+| plugin               | Array<BaseNetPlugin>            | 网络插件，类似于拦截器                                    |
 
 ### 设置请求头拦截
 
