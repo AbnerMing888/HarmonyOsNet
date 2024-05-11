@@ -50,13 +50,13 @@ ohpm install @abner/net
 "dependencies": { "@abner/net": "^1.0.1"}
 ```
 
-<p align="center"><img src="images/net_243_001.png" width="300"></p>
+<p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
 
 ### 2、本地静态共享包har包使用【不推荐】
 
 <p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.1.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
-<p><img src="images/net_243_002.png"></p>
+<p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
 <p>需要注意，<strong>@abner/net</strong>，是用来区分目录的，可以自己定义，比如@aa/bb等，关于静态共享包的创建和使用，请查看如下我的介绍，这里就不过多介绍</p>
 
@@ -66,7 +66,7 @@ ohpm install @abner/net
 
 无论使用哪种方式进行依赖，最终都会在使用的模块中，生成一个oh_modules文件，并创建源代码文件，有则成功，无则失败，如下：
 
-<p align="center"><img src="images/net_243_003.png" width="300"></p>
+<p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_003.png" width="300"></p>
 
 
 ## 全局初始化
@@ -692,7 +692,7 @@ downLoadRequest.removeProgressCallback()
 
 ## Dialog加载
 
-<p align="center"><img src="images/harmonyos_dialog.png" width="200px" /></p>
+<p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/harmonyos_dialog.png" width="200px" /></p>
 
 ### 1、定义dialog控制器
 
@@ -716,23 +716,13 @@ private mCustomDialogController = new CustomDialogController({
 setCustomDialogController(this.mCustomDialogController)
 ```
 
-#### 常见问题
-
-如果你打算下载源码使用，并且你的开发环境比较低，会造成，运行工程失败问题，常见错误如下，是因为开发环境不一致造成。
-
-<p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/refresh/harmonyos_error.png" width="300px" /></p>
-
-**您可以选择解决问题，解决方式如下：**
-
-[解决DevEco Studio低版本导入高版本项目运行失败问题](https://juejin.cn/post/7280746811328692258)
-
-您也可以不运行，直接进行使用，完全没有问题。
 
 ## 关注公众号
 
 鸿蒙先驱者，只分享精华的鸿蒙或者移动端技术文章，可扫码关注
 
-<p><img src="images/abner.jpg" width="150px" /></p>
+<p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/abner.jpg" width="150px" /></p>
+
 
 [鸿蒙精华技术文章列表](https://juejin.cn/column/7269566781248389178)
 
@@ -741,22 +731,24 @@ setCustomDialogController(this.mCustomDialogController)
 每个人的时间都是宝贵的，做为开发者的我，已经做到了技术上的免费开源，但仍然有很多问题无法做到及时处理。
 也考虑到，鸿蒙是一个新的系统，大家在使用上会遇到各种各样的问题，也为了能够及时的解决及回复问题，大家可以付费进行一对一指导。
 
-<p><img src="images/harmony_vip.png" width="150px" /></p>
+### 开源库使用指导
 
-**重要信息：一定要在备注您的微信号，我会主动加您！切记！切记！！切记！！！**
+<p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/h_github_9.png" width="150px" /></p>
+
+**重要信息：一定要在付款时备注您的微信号，我会主动加您！切记！切记！！切记！！！**
+**诚信经营，来自一个北漂的老程序员心声！**
 
 **一杯饮料的钱，您可以获取权益如下**
 
-- 1、针对网络库使用1对1辅导使用，并跟踪相关问题排查。
+- 1、针对刷新库使用1对1辅导使用，并跟踪相关问题排查。
 - 2、针对我的所有鸿蒙开源库，1对1辅导使用，并跟踪相关问题排查。
-- 3、根据时间安排，您的任何鸿蒙项目所遇到的问题，进行协助排查解决。
-- 4、未来鸿蒙开源库，先遣体验。
-- 5、未来鸿蒙脚手架，首批次体验使用。
-
-<p>可以通过文字、语音、视频、远程辅助，让您的鸿蒙道路更加顺畅！</p>
+- 3、涉及到我的开源库，您提的业务需求，率先第一时间满足，并及时针对性开发。
+- 4、未来我的鸿蒙开源库，可先遣体验。
+- 5、鸿蒙脚手架，正在研发中，可首批次体验使用。
 
 
-### License
+
+## License
 
 ```
 Copyright (C) AbnerMing, HarmonyOsNet Open Source Project
