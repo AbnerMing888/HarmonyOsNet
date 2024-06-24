@@ -6,7 +6,7 @@ export default class App extends AbilityStage {
     Net.getInstance().init({
       baseUrl: "https://www.vipandroid.cn",
       codeTag: {
-        "status": 0
+        "code": 0
       },
       resultTag:["items"]
     })

@@ -13,13 +13,14 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")
-              .setParams({ "index_type": -1, "size": 1 })
-              .requestString((data) => {
-                console.log("====" + data)
+            Net.get("http://10.47.26.83:8088/json/json.txt")
+              .setPrecisionKeys(["data","error"])
+              .requestObject<TestBean>((data) => {
+                console.log("===="+data.data)
               }, (error) => {
                 console.log("====" + JSON.stringify(error))
               })
+
             // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
             //   .requestObject<ItemsBean>((data) => {
             //     console.log("========" + data.items?.length)
@@ -57,5 +58,11 @@ struct Index {
 
     console.log("=======" + JSON.stringify(result))
   }
+}
+
+class TestBean {
+  code?: number
+  message?: string
+  data?: string
 }
 

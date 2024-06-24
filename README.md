@@ -12,7 +12,7 @@ hvigorVersion：4.2.0
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.1</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.2</span></i></p>
 
 - [x] **支持全局初始化**
 - [x] **支持统一的BaseUrl**
@@ -47,14 +47,14 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.0.1"}
+"dependencies": { "@abner/net": "^1.0.2"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
 
 ### 2、本地静态共享包har包使用【不推荐】
 
-<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.1.har">点击下载</a></p>
+<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.2.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
 <p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
@@ -391,22 +391,24 @@ CONNECT
 
 ### 7、各个方法调用
 
-| 方法                        | 类型                            | 概述                      |
-|---------------------------|-------------------------------|-------------------------|
-| setHeaders                | Object                        | 单独添加请求头参数               |
-| setBaseUrl                | string                        | 单独替换BaseUrl             |
-| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post           |
-| setConnectTimeout         | number                        | 单独设置连接超时                |
-| setReadTimeout            | number                        | 单独设置读取超时                |
-| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型             |
-| setUsingCache             | boolean                       | 使用缓存,默认为true            |
-| setPriority               | number                        | 设置优先级 默认为1              |
-| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定          |
-| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等 |
-| setContext                | Context                       | 设置上下文,用于下载文件            |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
-| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局  |
-| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                 |
+| 方法                        | 类型                            | 概述                        |
+|---------------------------|-------------------------------|---------------------------|
+| setHeaders                | Object                        | 单独添加请求头参数                 |
+| setBaseUrl                | string                        | 单独替换BaseUrl               |
+| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post             |
+| setConnectTimeout         | number                        | 单独设置连接超时                  |
+| setReadTimeout            | number                        | 单独设置读取超时                  |
+| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型               |
+| setUsingCache             | boolean                       | 使用缓存,默认为true              |
+| setPriority               | number                        | 设置优先级 默认为1                |
+| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定            |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等   |
+| setContext                | Context                       | 设置上下文,用于下载文件              |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog   |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局    |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                   |
+| setConversion             | Object                        | 转化对象，和原对象进行绑定，解决方法不能获取问题  |
+
 
 代码调用如下：
 
