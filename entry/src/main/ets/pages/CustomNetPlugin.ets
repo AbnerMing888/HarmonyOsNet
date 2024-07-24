@@ -8,19 +8,22 @@ import http from '@ohos.net.http';
 
 export class CustomNetPlugin extends BaseNetPlugin {
   willSendRequest(request: NetRequest): void {
+
   }
 
   didReceive(result: http.HttpResponse): void {
+
   }
 
   prepareRequest(request: NetRequest): Promise<NetRequest> {
     return new Promise((resolve: Function) => {
+      resolve(request)
     });
   }
 
   processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
     return new Promise((resolve: Function) => {
+      resolve(result)
     });
-
   }
 }

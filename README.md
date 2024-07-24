@@ -4,31 +4,32 @@
 
 ## 开发环境
 
-DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.100
+DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.403
 
 Api版本：**11**
 
-hvigorVersion：4.2.0
+modelVersion：5.0.0
+
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.2</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.6</span></i></p>
 
-- [x] **支持全局初始化**
-- [x] **支持统一的BaseUrl**
-- [x] **支持全局错误拦截**
-- [x] **支持全局头参拦截**
-- [x] **支持同步方式请求（get/post/delete/put/options/head/trace/connect）**
-- [x] **支持异步方式请求（get/post/delete/put/options/head/trace/connect）**
-- [x] **支持dialog加载**
-- [x] **支持返回Json字符串**
-- [x] **支持返回对象**
-- [x] **支持返回数组**
-- [x] **支持返回data一层数据**
-- [x] **支持上传文件**
-- [x] **支持下载文件**
-- [x] **支持全局状态码统一设置，业务层可省去判断**
-- [ ] 数据缓存开发中……
+- 1、**支持全局初始化**
+- 2、 **支持统一的BaseUrl**
+- 3、 **支持全局错误拦截**
+- 4、 **支持全局头参拦截**
+- 5、 **支持同步方式请求（get/post/delete/put/options/head/trace/connect）**
+- 6、 **支持异步方式请求（get/post/delete/put/options/head/trace/connect）**
+- 7、 **支持dialog加载**
+- 8、 **支持返回Json字符串**
+- 9、**支持返回对象**
+- 10、 **支持返回数组**
+- 11、 **支持返回data一层数据**
+- 12、 **支持上传文件**
+- 13、 **支持下载文件**
+- 14、 **支持全局状态码统一设置，业务层可省去判断**
+- 15、 **支持数据缓存，支持多种类型缓存**
 
 ## 快速使用
 
@@ -47,14 +48,14 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.0.2"}
+"dependencies": { "@abner/net": "^1.0.6"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
 
 ### 2、本地静态共享包har包使用【不推荐】
 
-<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.2.har">点击下载</a></p>
+<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.6.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
 <p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
@@ -69,7 +70,7 @@ ohpm install @abner/net
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_003.png" width="300"></p>
 
 
-## 全局初始化
+## 一、全局初始化
 
 推荐在AbilityStage进行初始化，初始化一次即可，初始化参数可根据项目需要进行选择性使用。
 
@@ -79,7 +80,6 @@ Net.getInstance().init({
   connectTimeout: 10000, //设置连接超时
   readTimeout: 10000, //设置读取超时
   netErrorInterceptor: new MyNetErrorInterceptor(), //设置全局错误拦截,需要自行创建,可在这里进行错误处理
-  netHeaderInterceptor: new MyNetHeaderInterceptor(), //设置全局头拦截器,需要自行创建
   header: {}, //头参数
   resultTag: [],//接口返回数据data层参数，比如data,items等等
   plugin:[]//插件，类似于拦截器
@@ -90,18 +90,23 @@ Net.getInstance().init({
 
 初始化属性，根据自己需要选择性使用。
 
-| 属性                   | 类型                              | 概述                                             |
-|----------------------|---------------------------------|------------------------------------------------|
-| baseUrl              | string                          | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
-| connectTimeout       | number                          | 可选参数，连接超时，默认10秒                                |
-| readTimeout          | number                          | 可选参数，读取超时，默认10秒                                |
-| netErrorInterceptor  | INetErrorInterceptor            | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
-| netHeaderInterceptor | INetHeaderInterceptor           | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
-| header               | Object/Record\<string, Object\> | 可选参数，全局统一的公共头参数                                |
-| resultTag            | Array<string>                   | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
-| codeTag              | {}                              | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
-| messageTag           | Array<string>                   | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
-| plugin               | Array<BaseNetPlugin>            | 网络插件，类似于拦截器                                    |
+| 属性                   | 类型                       | 概述                                             |
+|----------------------|--------------------------|------------------------------------------------|
+| baseUrl              | string                   | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
+| connectTimeout       | number                   | 可选参数，连接超时，默认10秒                                |
+| readTimeout          | number                   | 可选参数，读取超时，默认10秒                                |
+| netErrorInterceptor  | INetErrorInterceptor     | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
+| netHeaderInterceptor | INetHeaderInterceptor    | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
+| header               | Object{}                 | 可选参数，全局统一的公共头参数                                |
+| codeTag              | {}                       | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
+| messageTag           | Array\<string\>          | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
+| plugin               | Array\<BaseNetPlugin\>   | 网络插件，类似于拦截器                                    |
+| resultTag            | Array\<string\>          | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
+| messageTag           | Array\<string\>          | 返回data层数据时，结果的返回的tag标签，如message errorMessage等等 |
+| codeTag              | Record\<string, Object\> | 返回data层数据时，状态的返回tag标签，如code status等等           |
+| isReadCache          | boolean                  | 是否读取缓存，默认不读取                                   |
+| httpContext          | Context                  | 使用缓存时，传递的上下文，用缓存时必填                            |
+| cacheBundleName      | string                   | 包名，     用缓存时必填                                 |
 
 ### 设置请求头拦截
 
@@ -123,15 +128,16 @@ export class CustomNetPlugin extends BaseNetPlugin {
     
   }
 
-    // 请求之前拦截请求 可以做很多操作，比如添加头参，加密等等
+    // 请求之前拦截请求 可以做很多操作，比如添加头参，加密等等,如果需要，可重写方法，否则不用，可删除此方法
   prepareRequest(request: NetRequest): Promise<NetRequest> {
     return new Promise((resolve: Function) => {
-     
+    resolve(request)
     });
   }
-    //在这里可以修改Response信息
+    //在这里可以修改Response信息,如果需要,可重写此方法，否则不用，可删除此方法
     processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
         return new Promise((resolve: Function) => {
+    resolve(result)
     });
     }
 }
@@ -139,7 +145,7 @@ export class CustomNetPlugin extends BaseNetPlugin {
 
 #### 注入拦截器
 
-初始化注入
+**初始化注入**
 
 ```javascript
 Net.getInstance().init({
@@ -148,7 +154,8 @@ Net.getInstance().init({
       plugin:[new CustomNetPlugin()]
     })
 ```
-方法注入
+
+**方法注入**
 
 ```javascript
 Net.getInstance().addNetPlugins(new CustomNetPlugin())
@@ -159,10 +166,9 @@ Net.getInstance().addNetPlugins(new CustomNetPlugin())
 名字自定义，实现INetErrorInterceptor接口，可在httpError方法里进行全局的错误处理，比如统一跳转，统一提示等。
 
 ```typescript
-import { NetError } from '@app/net/src/main/ets/error/NetError';
-import { INetErrorInterceptor } from '@app/net/src/main/ets/interceptor/INetErrorInterceptor';
+import { NetError, NetErrorInterceptor } from '@abner/net';
 
-export class MyNetErrorInterceptor implements INetErrorInterceptor {
+export class MyNetErrorInterceptor extends NetErrorInterceptor {
   httpError(error: NetError) {
     //这里进行拦截错误信息
   }
@@ -190,12 +196,11 @@ getMessage():string{
 
 ```
 
-## 异步请求
+## 二、异步请求
 
 ### 1、请求说明
 
-为了方便数据的针对性返回，目前异步请求提供了三种请求方法，在实际的
-开发中，大家可以针对需要，选择性使用。
+为了方便数据的针对性返回，目前异步请求提供了三种请求方法，一种是默认的request方法，第二种是requestString方法，第三种是requestObject方法，在实际的开发中，大家可以针对需要，选择性使用。
 
 #### request方法
 
@@ -205,7 +210,7 @@ Net.get("url").request<TestModel>((data) => {
 })
 ```
 
-此方法，针对性返回对应的data数据对象，如下json，则会直接返回需要的data对象，不会携带外层的code等其他参数，方便大家直接的拿到数据。
+此方法，针对性返回对应的**data层数据对象**，如下json，则会直接返回需要的data对象，不会携带外层的code、message等其他参数，方便大家直接的拿到数据。
 
 ```json
 {
@@ -215,7 +220,7 @@ Net.get("url").request<TestModel>((data) => {
 }
 ```
 
-如果你的data是一个数组，如下json:
+当然了也可以直接返回数组，比如下面的json，data层是一个数组:
 
 ```json
 {
@@ -225,7 +230,7 @@ Net.get("url").request<TestModel>((data) => {
 }
 ```
 
-数组获取
+**直接数组层获取**
 
 ```typescript
 Net.get("url").request<TestModel[]>((data) => {
@@ -261,7 +266,7 @@ Net.get("url").request<Array<TestModel>>((data) => {
 }
 ```
 
-虽然网络库中默认取的是json中的data字段，如果您的数据返回类型字段有多种，如上json,可以通过全局初始化resultTag进行传递或者局部setResultTag传递即可。
+如果您的数据返回类型字段有多种，如上json,可以通过全局初始化resultTag进行传递或者局部setResultTag传递即可。
 
 **全局设置接口返回数据参数【推荐】**
 
@@ -285,6 +290,7 @@ Net.get("")
   })
 ```
 
+
 #### requestString方法
 
 requestString就比较简单，就是普通的返回请求回来的json字符串。
@@ -306,7 +312,7 @@ Net.get("url").requestObject<TestModel>((data) => {
 })
 ```
 
-为了更好的复用共有字段，你可以抽取一个基类，如下：
+如果你不想每次在对象中都生成共有字段，比如code,message等等，你可以抽取一个基类，如下：
 
 ```typescript
 export class ApiResult<T> {
@@ -316,7 +322,7 @@ export class ApiResult<T> {
 }
 ```
 
-以后就可以如下请求：
+以后就可以如下请求，code和message就不用再重新写了。
 
 ```typescript
 Net.get("url").requestObject<ApiResult<TestModel>>((data) => {
@@ -391,24 +397,27 @@ CONNECT
 
 ### 7、各个方法调用
 
-| 方法                        | 类型                            | 概述                        |
-|---------------------------|-------------------------------|---------------------------|
-| setHeaders                | Object                        | 单独添加请求头参数                 |
-| setBaseUrl                | string                        | 单独替换BaseUrl               |
-| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post             |
-| setConnectTimeout         | number                        | 单独设置连接超时                  |
-| setReadTimeout            | number                        | 单独设置读取超时                  |
-| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型               |
-| setUsingCache             | boolean                       | 使用缓存,默认为true              |
-| setPriority               | number                        | 设置优先级 默认为1                |
-| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定            |
-| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等   |
-| setContext                | Context                       | 设置上下文,用于下载文件              |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog   |
-| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局    |
-| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                   |
-| setConversion             | Object                        | 转化对象，和原对象进行绑定，解决方法不能获取问题  |
-
+| 方法                        | 类型                            | 概述                                                                                                                                                                                                                              |
+|---------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| setHeaders                | Object                        | 单独添加请求头参数                                                                                                                                                                                                                       |
+| setBaseUrl                | string                        | 单独替换BaseUrl                                                                                                                                                                                                                     |
+| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post                                                                                                                                                                                                                   |
+| setConnectTimeout         | number                        | 单独设置连接超时                                                                                                                                                                                                                        |
+| setReadTimeout            | number                        | 单独设置读取超时                                                                                                                                                                                                                        |
+| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型                                                                                                                                                                                                                     |
+| setUsingCache             | boolean                       | 使用缓存,默认为true                                                                                                                                                                                                                    |
+| setPriority               | number                        | 设置优先级 默认为1                                                                                                                                                                                                                      |
+| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定                                                                                                                                                                                                                  |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等，此方法设置后，全局就不生效                                                                                                                                                                                           |
+| setCodeTag                | Array\<string\>               | 状态码的返回tag标签，如code status等等，此方法设置后，全局就不生效                                                                                                                                                                                        |
+| setMessageTag             | Array\<string\>               | 信息的返回tag标签，如message errorMessage等等，此方法设置后，全局就不生效                                                                                                                                                                                |
+| setContext                | Context                       | 设置上下文,用于下载文件                                                                                                                                                                                                                    |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                                                                                                                                                                                                         |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局                                                                                                                                                                                                          |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                                                                                                                                                                                                                         |
+| setConversion             | Object                        | 转化对象，和原对象进行绑定，解决方法不能获取问题                                                                                                                                                                                                        |
+| setCacheType              | CacheType                     | 缓存类型，NO_NETWORK_READ_CACHE:无网络下直接读取缓存,FIRST_REMOTE：先请求网络，请求网络失败后再加载缓存，FIRST_CACHE：先加载缓存，缓存没有再去请求网络， CACHE_AND_REMOTE：先使用缓存，不管是否存在，仍然请求网络，会回调两次，CACHE_AND_REMOTE_DISTINCT：先使用缓存，不管是否存在，仍然请求网络，先把缓存回调，等网络请求回来发现数据是一样的就不会再返回，否则再返回 |
+| setPrecisionKeys          | string[]                      | 处理精度参数，传递字段即可                                                                                                                                                                                                                   |
 
 代码调用如下：
 
@@ -431,7 +440,7 @@ Net.get("url")
   })
 ```
 
-## 同步请求
+## 三、同步请求
 
 同步请求需要注意，需要await关键字和async关键字结合使用。
 
@@ -443,11 +452,11 @@ private async getTestModel(){
 
 ### 1、请求说明
 
-同步请求和异步请求一样，也是有三种方式，是通过参数的形式，默认直接返回data层数据。
+同步请求和异步请求一样，也是有三种方式，一种是returnData<TestModel>()，第二种是returnData<string>(ReturnDataType.STRING)，第三种是returnData<TestModel>(ReturnDataType.OBJECT)，通过参数的形式，默认直接返回data层数据。
 
 #### 返回data层数据
 
-和异步种的request方法类似，只返回json种的data层对象数据，不会返回code等字段。
+和异步种的request方法类似，只返回json种的data层对象数据，不会返回code等字段,returnData默认就是返回data层数据。
 
 ```typescript
  private async getData(){
@@ -458,7 +467,7 @@ private async getTestModel(){
 
 #### 返回Json对象
 
-和异步种的requestObject方法类似，会返回整个json对象，包含code等字段。
+和异步种的requestObject方法类似，会返回整个json对象，包含code，message等字段，需要传递ReturnDataType.OBJECT。
 
 ```typescript
  private async getData(){
@@ -469,7 +478,7 @@ private async getTestModel(){
 
 #### 返回Json字符串
 
-和异步种的requestString方法类似。
+和异步种的requestString方法类似，需要传递ReturnDataType.STRING。
 
 ```typescript
 private async getData(){
@@ -536,23 +545,25 @@ CONNECT
 
 ### 7、各个方法调用
 
-| 方法                        | 类型                            | 概述                      |
-|---------------------------|-------------------------------|-------------------------|
-| setHeaders                | Object                        | 单独添加请求头参数               |
-| setBaseUrl                | string                        | 单独替换BaseUrl             |
-| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post           |
-| setConnectTimeout         | number                        | 单独设置连接超时                |
-| setReadTimeout            | number                        | 单独设置读取超时                |
-| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型             |
-| setUsingCache             | boolean                       | 使用缓存,默认为true            |
-| setPriority               | number                        | 设置优先级 默认为1              |
-| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定          |
-| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等 |
-| setContext                | Context                       | 设置上下文,用于下载文件            |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog |
-| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局  |
-| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                 |
+| 方法                        | 类型                            | 概述                                                |
+|---------------------------|-------------------------------|---------------------------------------------------|
+| setHeaders                | Object                        | 单独添加请求头参数                                         |
+| setBaseUrl                | string                        | 单独替换BaseUrl                                       |
+| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post                                     |
+| setConnectTimeout         | number                        | 单独设置连接超时                                          |
+| setReadTimeout            | number                        | 单独设置读取超时                                          |
+| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型                                       |
+| setUsingCache             | boolean                       | 使用缓存,默认为true                                      |
+| setPriority               | number                        | 设置优先级 默认为1                                        |
+| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定                                    |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等，此方法设置后，全局就不生效             |
+| setCodeTag                | Array\<string\>               | 状态码的返回tag标签，如code status等等，此方法设置后，全局就不生效          |
+| setMessageTag             | Array\<string\>               | 信息的返回tag标签，如message errorMessage等等，此方法设置后，全局就不生效  |
+| setContext                | Context                       | 设置上下文,用于下载文件                                      |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                           |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                           |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局                            |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                                           |
 
 代码调用如下：
 
@@ -574,7 +585,7 @@ const data = await Net.get("url")
 //data为 返回的 TestModel对象
 ```
 
-## 上传下载
+## 四、上传下载
 
 ### 1、上传文件
 
@@ -692,11 +703,13 @@ downLoadRequest.restoreDownloadTask((result) => {
 downLoadRequest.removeProgressCallback()
 ```
 
-## Dialog加载
+## 五、Dialog加载
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/harmonyos_dialog.png" width="200px" /></p>
 
-### 1、定义dialog控制器
+### 使用系统CustomDialogController
+
+#### 1、定义dialog控制器
 
 NetLoadingDialog是net包中自带的，菊花状弹窗，如果和实际业务不一致，可以更换。
 
@@ -706,17 +719,40 @@ private mCustomDialogController = new CustomDialogController({
     loadingText: '请等待...'
   }),
   autoCancel: false,
-  customStyle: true
+  customStyle: true,
+  alignment: DialogAlignment.Center
 })
 ```
 
-### 2、调用传递控制器方法
+#### 2、调用传递控制器方法
 
 此方法会自动显示和隐藏dialog，如果觉得不合适，大家可以自己定义即可。
 
 ```typescript
 setCustomDialogController(this.mCustomDialogController)
 ```
+
+### 使用自定义，支持全局
+
+#### 1、全局初始化
+
+在Ability里进行初始化
+
+```typescript
+ DialogLoading.getInstance().init({
+      context: this.context,
+      pagePath: "pages/LoadingPage"
+    })
+```
+
+#### 2、使用
+
+在网络请求的时候，直接调用即可。
+
+```typescript
+ showDialogLoading()
+```
+
 
 
 ## 关注公众号

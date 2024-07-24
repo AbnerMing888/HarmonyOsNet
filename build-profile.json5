@@ -1,11 +1,24 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.cer",
+          "storePassword": "0000001A077970AF517495D618E8759FB8EFC9C18D83360397518C49D1FCAB2E161C9E8E9E4B0A7A38A0",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A6B59A3E56412A56F3F196593B99C67F7C0B5CDEB76A0E03824B7C0D769686FB5CCECA97F9FEA",
+          "profile": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": "4.1.0(11)",
         "compatibleSdkVersion": "4.1.0(11)",
         "runtimeOS": "HarmonyOS",
       }
@@ -31,9 +44,6 @@
           ]
         }
       ]
-    },{
-      "name": "net",
-      "srcPath": "./net",
     }
   ]
 }

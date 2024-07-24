@@ -1,38 +1,42 @@
-import { Net } from '@abner/net';
+import { ApiResult, CacheType, Net, NetLoadingDialog, NetworkUtils } from '@abner/net';
 import { ItemBean } from './ItemsBean';
+import { HashMap } from '@kit.ArkTS';
+
+class ApiTest<T> {
+  private code?: number = 0
+  private msg?: string = ''
+  private data?: T | null = null
+}
 
 @Entry
 @Component
 struct Index {
   @State message: string = 'Hello World';
+  private mCustomDialogController = new CustomDialogController({
+    builder: NetLoadingDialog({
+      loadingText: '请等待...'
+    }),
+    autoCancel: false,
+    customStyle: true,
+    alignment: DialogAlignment.Center
+  })
 
   build() {
     Row() {
       Column() {
         Text(this.message)
+        Text("点击")
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            Net.get("http://10.47.26.83:8088/json/json.txt")
-              .setPrecisionKeys(["data","error"])
-              .requestObject<TestBean>((data) => {
-                console.log("===="+data.data)
+
+            Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")//.setCustomDialogController(this.mCustomDialogController)
+              .showDialogLoading()
+              .request<ItemBean[]>((data) => {
+                console.log("=========" + data.length)
               }, (error) => {
                 console.log("====" + JSON.stringify(error))
               })
-
-            // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
-            //   .requestObject<ItemsBean>((data) => {
-            //     console.log("========" + data.items?.length)
-            //   },(error)=>{
-            //     console.log("====" + JSON.stringify(error))
-            //   })
-            // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
-            //   .request<ItemBean[]>((data) => {
-            //     console.log("=========" + data.length)
-            //   },(error)=>{
-            //     console.log("====" + JSON.stringify(error))
-            //   })
 
             // Net.get("cert/AbnerGetIndexBanner.ph")
             //   .requestString((data)=>{
@@ -59,6 +63,7 @@ struct Index {
     console.log("=======" + JSON.stringify(result))
   }
 }
+
 
 class TestBean {
   code?: number
