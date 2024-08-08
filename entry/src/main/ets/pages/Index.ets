@@ -1,11 +1,14 @@
-import { ApiResult, CacheType, Net, NetLoadingDialog, NetworkUtils } from '@abner/net';
-import { ItemBean } from './ItemsBean';
-import { HashMap } from '@kit.ArkTS';
+import { DownloadTaskState, GET, Net, NetLoadingDialog, POST } from '@abner/net';
+import EntryAbility from '../entryability/EntryAbility';
+import promptAction from '@ohos.promptAction';
 
-class ApiTest<T> {
-  private code?: number = 0
-  private msg?: string = ''
-  private data?: T | null = null
+class ApiTest {
+  status?: number = 0
+  message?: string = ''
+}
+
+class ItemBean {
+  title?: string
 }
 
 @Entry
@@ -29,14 +32,30 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
+            this.doHttp()
+            // Net.get("cert/AbnerGetIndexBanner.php")
+            //   .showDialogLoading()
+            //   .request<ItemBean[]>((data) => {
+            //     console.log("=====" + data.length)
+            //   }, (error) => {
+            //     console.log("=====" + JSON.stringify(error))
+            //   })
 
-            Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")//.setCustomDialogController(this.mCustomDialogController)
-              .showDialogLoading()
-              .request<ItemBean[]>((data) => {
-                console.log("=========" + data.length)
-              }, (error) => {
-                console.log("====" + JSON.stringify(error))
-              })
+            // let json = "{\"code\":0,\"message\":\"你好\"}"
+            // let testBean = JSON.parse(json) as TestBean
+            // let bean = plainToClass(TestBean, testBean)
+            // console.log("===========" + bean.data)
+            // bean.log()
+
+            // console.log("==:" + JSON.stringify(testBean))
+            // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")//.setCustomDialogController(this.mCustomDialogController)
+            //   .showDialogLoading()
+            //   .setConversion(new ItemBean())
+            //   .request<ItemBean[]>((data) => {
+            //     data[0].test()
+            //   }, (error) => {
+            //     console.log("====" + JSON.stringify(error))
+            //   })
 
             // Net.get("cert/AbnerGetIndexBanner.ph")
             //   .requestString((data)=>{
@@ -55,12 +74,38 @@ struct Index {
   }
 
   private async doHttp() {
-    let result =
-      await Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")// .returnData<ItemsBean>(ReturnDataType.OBJECT)
-        .setParams({ "index_type": -1, "size": 1 })
-        .returnData<ItemBean[]>()
+    // let result =
+    //   await Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")// .returnData<ItemsBean>(ReturnDataType.OBJECT)
+    //     .setParams({ "index_type": -1, "size": 1 })
+    //     .returnData<ItemBean[]>()
 
-    console.log("=======" + JSON.stringify(result))
+    let string = await this.test()
+    console.log("============" + string)
+  }
+
+  @POST("cert/AbnerGetIndexBanner.php",{ params: { "params": "nihao" }, isReturnJson: true, isShowLoading: true })
+  test(): Promise<string> | undefined {
+    return undefined
+  }
+
+
+
+  down() {
+    Net.downLoadFile("http://10.47.26.83:8088/json/14_151_2_8_1719217390000.mp4")
+      .setContext(EntryAbility.cx!)
+      .setFilePath(EntryAbility.path!)
+      .setProgress((receivedSize, totalSize) => {
+        //监听下载进度
+        console.error("===========Progress:" + receivedSize + "===" + totalSize)
+      })
+      .request((data) => {
+        console.error("===========result:" + JSON.stringify(data))
+        if (data == DownloadTaskState.COMPLETE) {
+          //下载完成
+        }
+      }, (err) => {
+        console.error("===========" + JSON.stringify(err))
+      })
   }
 }
 
@@ -68,6 +113,10 @@ struct Index {
 class TestBean {
   code?: number
   message?: string
-  data?: string
+  data?: string = "NIHAO"
+
+  log() {
+    console.log("================000")
+  }
 }
 

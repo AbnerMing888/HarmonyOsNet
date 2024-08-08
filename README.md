@@ -13,7 +13,7 @@ modelVersion：5.0.0
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.6</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.0.7</span></i></p>
 
 - 1、**支持全局初始化**
 - 2、 **支持统一的BaseUrl**
@@ -30,6 +30,7 @@ modelVersion：5.0.0
 - 13、 **支持下载文件**
 - 14、 **支持全局状态码统一设置，业务层可省去判断**
 - 15、 **支持数据缓存，支持多种类型缓存**
+- 16、 **支持装饰器模式**
 
 ## 快速使用
 
@@ -48,14 +49,14 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.0.6"}
+"dependencies": { "@abner/net": "^1.0.7"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
 
 ### 2、本地静态共享包har包使用【不推荐】
 
-<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.6.har">点击下载</a></p>
+<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.0.7.har">点击下载</a></p>
 <p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
 <p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_002.png"></p>
 <p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
@@ -107,6 +108,7 @@ Net.getInstance().init({
 | isReadCache          | boolean                  | 是否读取缓存，默认不读取                                   |
 | httpContext          | Context                  | 使用缓存时，传递的上下文，用缓存时必填                            |
 | cacheBundleName      | string                   | 包名，     用缓存时必填                                 |
+| loadingDialog        | WrappedBuilder\<[]\>     | 全局的dialog                                      |
 
 ### 设置请求头拦截
 
@@ -585,7 +587,159 @@ const data = await Net.get("url")
 //data为 返回的 TestModel对象
 ```
 
-## 四、上传下载
+## 四、装饰器模式请求
+
+网络库允许使用装饰器的方式发起请求，也就是通过注解的方式，目前采取的是装饰器方法的形式。
+
+#### 1、请求说明
+
+装饰器和同步异步有所区别，只返回两种数据类型，一种是json字符串，一种是json对象，暂时不提供返回data层数据。
+在使用的时候，您可以单独创建工具类或者ViewModel或者直接使用，都可以。
+
+##### 返回json字符串
+
+```typescript
+@GET("url",{isReturnJson: true})
+getData():Promise<string> | undefined {
+  return undefined
+}
+```
+
+##### 返回json对象
+
+```typescript
+@GET("url")
+ getData():Promise<TestModel> | undefined {
+  return undefined
+}
+```
+
+#### 2、get请求
+
+```typescript
+@GET("url")
+ getData():Promise<TestModel> | undefined {
+  return undefined
+}
+```
+
+#### 3、post请求
+
+```typescript
+@POST("url")
+ getData():Promise<TestModel> | undefined {
+  return undefined
+}
+```
+
+#### 4、delete请求
+
+```typescript
+@DELETE("url")
+ getData():Promise<TestModel> | undefined {
+  return undefined
+}
+```
+
+#### 5、put请求
+
+```typescript
+@PUT("url")
+private getData():Promise<TestModel> | undefined {
+  return undefined
+}
+```
+
+#### 6、其他请求方式
+
+除了常见的请求之外，根据系统api所提供的，也封装了如下的请求方式,只需要更改请求方式即可，比如@OPTIONS
+
+```
+OPTIONS
+HEAD
+TRACE
+CONNECT
+```
+
+当然，大家也可以使用统一的NET装饰器，只不过需要自己设置请求方法，代码如下：
+
+```typescript
+@NET("url", { method: http.RequestMethod.POST })
+ getData():Promise<string> | undefined{
+  return undefined
+}
+```
+
+#### 7、装饰器参数传递
+
+##### 直接参数传递
+
+直接参数，在调用装饰器请求时，后面添加即可,一般针对固定参数。
+
+```typescript
+@GET("url", {
+  baseUrl: "", //baseUrl
+  header: {}, //头参数
+  params: {}, //入参
+  connectTimeout: 1000, //连接超时
+  readTimeout: 1000, //读取超时
+  isReturnJson: true,//默认返回json对象
+  isShowLoading:true//是否显示DialogLoading
+})
+private getData():Promise<string> | undefined {
+  return undefined
+}
+```
+
+##### 动态参数传递
+
+动态参数适合参数可变的情况下传递，比如分页等情况。
+
+```typescript
+@GET("url")
+ getData(data? : HttpOptions):Promise<string> | undefined {
+  return undefined
+}
+```
+
+调用时传递
+
+```typescript
+private async doHttp(){
+  const data = await this.getData({
+    baseUrl: "", //baseUrl
+    header: {}, //头参数
+    params: {}, //入参
+    connectTimeout: 1000, //连接超时
+    readTimeout: 1000, //读取超时
+    isReturnJson: true,//默认返回json对象
+    isShowLoading:true//是否显示DialogLoading
+  })
+}
+```
+
+##### 装饰器参数传递
+
+使用DATA装饰器，DATA必须在上！
+
+```typescript
+@DATA({
+  baseUrl: "", //baseUrl
+  header: {}, //头参数
+  params: {}, //入参
+  connectTimeout: 1000, //连接超时
+  readTimeout: 1000, //读取超时
+  isReturnJson: true,//默认返回json对象
+  isShowLoading:true//是否显示DialogLoading
+})
+@GET("url")
+ getData():Promise<string> | undefined{
+  return undefined
+}
+```
+
+
+## 五、上传下载
 
 ### 1、上传文件
 
@@ -703,7 +857,7 @@ downLoadRequest.restoreDownloadTask((result) => {
 downLoadRequest.removeProgressCallback()
 ```
 
-## 五、Dialog加载
+## 六、Dialog加载
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/harmonyos_dialog.png" width="200px" /></p>
 
@@ -734,18 +888,7 @@ setCustomDialogController(this.mCustomDialogController)
 
 ### 使用自定义，支持全局
 
-#### 1、全局初始化
-
-在Ability里进行初始化
-
-```typescript
- DialogLoading.getInstance().init({
-      context: this.context,
-      pagePath: "pages/LoadingPage"
-    })
-```
-
-#### 2、使用
+#### 1、使用
 
 在网络请求的时候，直接调用即可。
 
@@ -753,7 +896,26 @@ setCustomDialogController(this.mCustomDialogController)
  showDialogLoading()
 ```
 
+#### 2、自己自定义
 
+dialog支持自己自定义，只需要在全局初始化时设置即可。
+
+```typescript
+//定义全局的Builder
+@Builder
+function DialogLoading() {
+  //自己写视图，或者使用自定义组件都行
+  Column() {
+    Text("我是自定义的Loading")
+  }
+}
+
+//在全局初始化的时候，设置即可
+Net.getInstance().init({
+  loadingDialog: wrapBuilder(DialogLoading)
+})
+
+```
 
 ## 关注公众号
 

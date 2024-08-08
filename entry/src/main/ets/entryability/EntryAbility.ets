@@ -1,16 +1,13 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import { DialogLoading } from '@abner/net/src/main/ets/dialog/DialogLoading';
 
 export default class EntryAbility extends UIAbility {
+  static cx?: Context
+  static path?: string
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-    DialogLoading.getInstance().init({
-      context: this.context,
-      pagePath: "pages/LoadingPage"
-    })
-
   }
 
   onDestroy(): void {
