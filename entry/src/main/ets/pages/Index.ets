@@ -32,14 +32,14 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            this.doHttp()
-            // Net.get("cert/AbnerGetIndexBanner.php")
-            //   .showDialogLoading()
-            //   .request<ItemBean[]>((data) => {
-            //     console.log("=====" + data.length)
-            //   }, (error) => {
-            //     console.log("=====" + JSON.stringify(error))
-            //   })
+            // this.doHttp()
+            Net.get("cert/AbnerGetIndexBanner.ph")
+              .showDialogLoading()
+              .request<ItemBean[]>((data) => {
+                console.log("=====" + data.length)
+              }, (error) => {
+                console.log("=====" + JSON.stringify(error))
+              })
 
             // let json = "{\"code\":0,\"message\":\"你好\"}"
             // let testBean = JSON.parse(json) as TestBean
@@ -87,8 +87,6 @@ struct Index {
   test(): Promise<string> | undefined {
     return undefined
   }
-
-
 
   down() {
     Net.downLoadFile("http://10.47.26.83:8088/json/14_151_2_8_1719217390000.mp4")

@@ -1,4 +1,4 @@
-import { Net } from '@abner/net'
+import { Net, NetLog } from '@abner/net'
 import { AbilityStage } from '@kit.AbilityKit'
 import { CustomNetPlugin } from './CustomNetPlugin'
 
@@ -13,5 +13,6 @@ export default class App extends AbilityStage {
       resultTag: ["items"]
     })
     //Net.getInstance().addNetPlugins(new CustomNetPlugin())
+
   }
 }

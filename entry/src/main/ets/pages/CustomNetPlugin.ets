@@ -3,7 +3,7 @@
  * DATE:2023/10/24
  * INTRODUCE:网络库插件 处理接口加密，动态获取header
  * */
-import { BaseNetPlugin, NetRequest } from '@abner/net';
+import { BaseNetPlugin, NetError, NetRequest } from '@abner/net';
 import http from '@ohos.net.http';
 
 export class CustomNetPlugin extends BaseNetPlugin {
@@ -15,13 +15,19 @@ export class CustomNetPlugin extends BaseNetPlugin {
 
   }
 
+  error(request: NetRequest, response: http.HttpResponse, error: NetError): void {
+
+  }
+
   prepareRequest(request: NetRequest): Promise<NetRequest> {
     return new Promise((resolve: Function) => {
       resolve(request)
     });
   }
 
+
   processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
+
     return new Promise((resolve: Function) => {
       resolve(result)
     });
