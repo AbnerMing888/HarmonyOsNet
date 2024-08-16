@@ -33,12 +33,10 @@ struct Index {
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
             // this.doHttp()
-            Net.get("cert/AbnerGetIndexBanner.ph")
-              .showDialogLoading()
-              .request<ItemBean[]>((data) => {
-                console.log("=====" + data.length)
-              }, (error) => {
-                console.log("=====" + JSON.stringify(error))
+            Net.post("https://www.wanandroid.com/user/login")
+              .setParams({ "username": "aa", "password": "aa" })
+              .requestString(() => {
+                console.log("==========成功")
               })
 
             // let json = "{\"code\":0,\"message\":\"你好\"}"
