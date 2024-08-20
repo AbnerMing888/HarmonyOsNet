@@ -35,6 +35,7 @@ struct Index {
             // this.doHttp()
             Net.post("https://www.wanandroid.com/user/login")
               .setParams({ "username": "aa", "password": "aa" })
+              .setHeaders({ "as": "asas" })
               .requestString(() => {
                 console.log("==========成功")
               })

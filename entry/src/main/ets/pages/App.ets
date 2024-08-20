@@ -1,4 +1,4 @@
-import { Net, NetLog } from '@abner/net'
+import { Net } from '@abner/net'
 import { AbilityStage } from '@kit.AbilityKit'
 import { CustomNetPlugin } from './CustomNetPlugin'
 
