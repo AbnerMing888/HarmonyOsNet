@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.cer",
+          "storePassword": "0000001BD0CD857528034FDD56F5235A723FC6144A7EDE88658E0BCE9110EDC9B21A9E31FE0474E7033289",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B4A32EC0298DBD9E8F3FFE995655AD080CD3205EE2DD3B469D74C799AF001329D5DC7779A66E3AD",
+          "profile": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\GW00261583\\.ohos\\config\\default_HarmonyOsNet_4Kn9SwaaQ4ksd9sfsC7U1VtkHxA3zuzZbBMP4OwQqC8=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
@@ -30,6 +44,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "net",
+      "srcPath": "./net"
     }
   ]
 }

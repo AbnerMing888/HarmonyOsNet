@@ -1,4 +1,4 @@
-import { DownloadTaskState, GET, Net, NetLoadingDialog, POST } from '@abner/net';
+import { DownloadTaskState, GET, Net, NetLoadingDialog, POST, ReturnDataType } from '@abner/net';
 import EntryAbility from '../entryability/EntryAbility';
 import promptAction from '@ohos.promptAction';
 
@@ -31,14 +31,19 @@ struct Index {
         Text("点击")
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
-          .onClick(() => {
+          .onClick(async () => {
             // this.doHttp()
-            Net.post("https://www.wanandroid.com/user/login")
+            let a=await Net.post("https://www.wanandroid.com/user/login")
               .setParams({ "username": "aa", "password": "aa" })
               .setHeaders({ "as": "asas" })
-              .requestString(() => {
-                console.log("==========成功")
-              })
+              .returnData<string>(ReturnDataType.STRING)
+
+            console.log("============"+JSON.stringify(a))
+            // .requestString(() => {
+            //   console.log("==========成功")
+            // }, (err) => {
+            //   console.log("==========" + JSON.stringify(err))
+            // })
 
             // let json = "{\"code\":0,\"message\":\"你好\"}"
             // let testBean = JSON.parse(json) as TestBean

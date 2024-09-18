@@ -3,7 +3,7 @@
 
 ## 开发环境
 
-DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.403
+DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.706
 
 Api版本：**11**
 
@@ -12,7 +12,7 @@ modelVersion：5.0.0
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.0</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.1</span></i></p>
 
 - 1、**支持全局初始化**
 - 2、 **支持统一的BaseUrl**
@@ -48,20 +48,11 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.1.0"}
+"dependencies": { "@abner/net": "^1.1.1"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
 
-### 2、本地静态共享包har包使用【不推荐】
-
-<p>首先，下载har包，<a href="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net-1.1.0.har">点击下载</a></p>
-<p>下载之后，把har包复制项目中，目录自己创建，如下，我创建了一个libs目录，复制进去</p>
-<p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_002.png"></p>
-<p>引入之后，进行同步项目，点击Sync Now即可，当然了你也可以，将鼠标放置在报错处会出现提示，在提示框中点击Run 'ohpm install'。</p>
-<p>需要注意，<strong>@abner/net</strong>，是用来区分目录的，可以自己定义，比如@aa/bb等，关于静态共享包的创建和使用，请查看如下我的介绍，这里就不过多介绍</p>
-
-[HarmonyOS开发：走进静态共享包的依赖与使用](https://juejin.cn/post/7274982412245876776)
 
 ### 3、查看是否引用成功
 
@@ -110,6 +101,8 @@ Net.getInstance().init({
 | loadingDialog        | WrappedBuilder\<[]\>              | 全局的dialog                                      |
 | closeLog             | boolean                           | 是否关闭日志                                         |
 | params               | Object / Record<string, Object>   | 全局参数                                           |
+| isLoadingUseMainWindow  | boolean                         | 弹出的DialogLoading是否使用主window弹出，默认false不是        |
+
 
 ### 设置请求头拦截
 

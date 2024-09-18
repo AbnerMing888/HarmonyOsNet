@@ -10,7 +10,7 @@ export default class App extends AbilityStage {
       plugin: [new CustomNetPlugin()],
       isReadCache: true,
       httpContext: this.context,
-      resultTag: ["items"]
+      resultTag: ["items"],
     })
     //Net.getInstance().addNetPlugins(new CustomNetPlugin())
 
