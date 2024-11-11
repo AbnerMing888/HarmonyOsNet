@@ -6,11 +6,10 @@ import { CustomNetPlugin } from './CustomNetPlugin'
 export default class App extends AbilityStage {
   onCreate() {
     Net.getInstance().init({
-      baseUrl: "https://www.vipandroid.cn",
+      baseUrl: "http://10.47.18.86:8888",
       plugin: [new CustomNetPlugin()],
       isReadCache: true,
-      httpContext: this.context,
-      resultTag: ["items"],
+      httpContext: this.context
     })
     //Net.getInstance().addNetPlugins(new CustomNetPlugin())
 

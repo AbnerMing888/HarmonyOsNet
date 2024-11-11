@@ -27,49 +27,33 @@ struct Index {
   build() {
     Row() {
       Column() {
-        Text(this.message)
         Text("点击")
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(async () => {
+
+            // Net.get("/queryTest")
+            //   .setParams({
+            //     "userName": "AbnerMing",
+            //   }).requestString((result) => {
+            //   console.log("===success：" + result)
+            // }, (err) => {
+            //   console.log("===error：" + err.getMessage())
+            // })
+
+
             // this.doHttp()
-            let a=await Net.post("https://www.wanandroid.com/user/login")
+            let a = await Net.post("https://www.wanandroid.com/user/login")
               .setParams({ "username": "aa", "password": "aa" })
               .setHeaders({ "as": "asas" })
               .returnData<string>(ReturnDataType.STRING)
-
-            console.log("============"+JSON.stringify(a))
+            console.log("============" + JSON.stringify(a))
             // .requestString(() => {
             //   console.log("==========成功")
             // }, (err) => {
             //   console.log("==========" + JSON.stringify(err))
             // })
 
-            // let json = "{\"code\":0,\"message\":\"你好\"}"
-            // let testBean = JSON.parse(json) as TestBean
-            // let bean = plainToClass(TestBean, testBean)
-            // console.log("===========" + bean.data)
-            // bean.log()
-
-            // console.log("==:" + JSON.stringify(testBean))
-            // Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")//.setCustomDialogController(this.mCustomDialogController)
-            //   .showDialogLoading()
-            //   .setConversion(new ItemBean())
-            //   .request<ItemBean[]>((data) => {
-            //     data[0].test()
-            //   }, (error) => {
-            //     console.log("====" + JSON.stringify(error))
-            //   })
-
-            // Net.get("cert/AbnerGetIndexBanner.ph")
-            //   .requestString((data)=>{
-            //     console.log("=====" + data)
-            //   })
-            // this.doHttp()
-            // Net.post("cert/AbnerGetIndexCenter.php")
-            //   .requestString((data) => {
-            //     console.log("=====" + data)
-            //   })
           })
       }
       .width('100%')
@@ -85,6 +69,7 @@ struct Index {
 
     let string = await this.test()
     console.log("============" + string)
+
   }
 
   @POST("cert/AbnerGetIndexBanner.php",{ params: { "params": "nihao" }, isReturnJson: true, isShowLoading: true })

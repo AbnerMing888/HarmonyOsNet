@@ -1,18 +1,21 @@
 # HarmonyOsNet
+
 **HarmonyOS网络库**，基于http封装而来，简化了请求方式，增加了常见的业务功能，支持同步、异步、装饰器模式，支持多种返回数据类型，Json、对象、数组，支持数据缓存，支持dialog加载，支持控制台请求信息格式化输出……
+
+**目前基于Remote Communication Kit（远场通信服务）封装的网络库已经上架，切换的朋友，可以[点击直达](https://ohpm.openharmony.cn/#/cn/detail/@abner%2Fhttp)。**
 
 ## 开发环境
 
-DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.706
+DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.900
 
-Api版本：**11**
+Api版本：**12**
 
 modelVersion：5.0.0
 
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.1</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.2</span></i></p>
 
 - 1、**支持全局初始化**
 - 2、 **支持统一的BaseUrl**
@@ -48,7 +51,7 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.1.1"}
+"dependencies": { "@abner/net": "^1.1.2"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
@@ -81,28 +84,27 @@ Net.getInstance().init({
 
 初始化属性，根据自己需要选择性使用。
 
-| 属性                   | 类型                                | 概述                                             |
-|----------------------|-----------------------------------|------------------------------------------------|
-| baseUrl              | string                            | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
-| connectTimeout       | number                            | 可选参数，连接超时，默认10秒                                |
-| readTimeout          | number                            | 可选参数，读取超时，默认10秒                                |
-| netErrorInterceptor  | INetErrorInterceptor              | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
-| netHeaderInterceptor | INetHeaderInterceptor             | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
-| header               | Object{}                          | 可选参数，全局统一的公共头参数                                |
-| codeTag              | {}                                | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
-| messageTag           | Array\<string\>                   | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
-| plugin               | Array\<BaseNetPlugin\>            | 网络插件，类似于拦截器                                    |
-| resultTag            | Array\<string\>                   | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
-| messageTag           | Array\<string\>                   | 返回data层数据时，结果的返回的tag标签，如message errorMessage等等 |
-| codeTag              | Record\<string, Object\>          | 返回data层数据时，状态的返回tag标签，如code status等等           |
-| isReadCache          | boolean                           | 是否读取缓存，默认不读取                                   |
-| httpContext          | Context                           | 使用缓存时，传递的上下文，用缓存时必填                            |
-| cacheBundleName      | string                            | 包名，     用缓存时必填                                 |
-| loadingDialog        | WrappedBuilder\<[]\>              | 全局的dialog                                      |
-| closeLog             | boolean                           | 是否关闭日志                                         |
-| params               | Object / Record<string, Object>   | 全局参数                                           |
+| 属性                      | 类型                              | 概述                                             |
+|-------------------------|---------------------------------|------------------------------------------------|
+| baseUrl                 | string                          | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
+| connectTimeout          | number                          | 可选参数，连接超时，默认10秒                                |
+| readTimeout             | number                          | 可选参数，读取超时，默认10秒                                |
+| netErrorInterceptor     | INetErrorInterceptor            | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
+| netHeaderInterceptor    | INetHeaderInterceptor           | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
+| header                  | Object{}                        | 可选参数，全局统一的公共头参数                                |
+| codeTag                 | {}                              | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
+| messageTag              | Array\<string\>                 | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
+| plugin                  | Array\<BaseNetPlugin\>          | 网络插件，类似于拦截器                                    |
+| resultTag               | Array\<string\>                 | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
+| messageTag              | Array\<string\>                 | 返回data层数据时，结果的返回的tag标签，如message errorMessage等等 |
+| codeTag                 | Record\<string, Object\>        | 返回data层数据时，状态的返回tag标签，如code status等等           |
+| isReadCache             | boolean                         | 是否读取缓存，默认不读取                                   |
+| httpContext             | Context                         | 使用缓存时，传递的上下文，用缓存时必填                            |
+| cacheBundleName         | string                          | 包名，     用缓存时必填                                 |
+| loadingDialog           | WrappedBuilder\<[]\>            | 全局的dialog                                      |
+| closeLog                | boolean                         | 是否关闭日志                                         |
+| params                  | Object / Record<string, Object> | 全局参数                                           |
 | isLoadingUseMainWindow  | boolean                         | 弹出的DialogLoading是否使用主window弹出，默认false不是        |
-
 
 ### 设置请求头拦截
 
@@ -115,27 +117,27 @@ Net.getInstance().init({
 
 ```javascript
 export class CustomNetPlugin extends BaseNetPlugin {
-    //发送Request 请求的所有信息
-    willSendRequest(request: NetRequest): void {
+   //发送Request 请求的所有信息
+  willSendRequest(request: NetRequest): void {
+    
+  }
+    //收到Response响应，响应的所有信息
+  didReceive(result: http.HttpResponse): void {
+    
+  }
 
-}
-//收到Response响应，响应的所有信息
-didReceive(result: http.HttpResponse): void {
-
-}
-
-// 请求之前拦截请求 可以做很多操作，比如添加头参，加密等等,如果需要，可重写方法，否则不用，可删除此方法
-prepareRequest(request: NetRequest): Promise<NetRequest> {
+    // 请求之前拦截请求 可以做很多操作，比如添加头参，加密等等,如果需要，可重写方法，否则不用，可删除此方法
+  prepareRequest(request: NetRequest): Promise<NetRequest> {
     return new Promise((resolve: Function) => {
     resolve(request)
-});
-}
-//在这里可以修改Response信息,如果需要,可重写此方法，否则不用，可删除此方法
-processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
-    return new Promise((resolve: Function) => {
+    });
+  }
+    //在这里可以修改Response信息,如果需要,可重写此方法，否则不用，可删除此方法
+    processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
+        return new Promise((resolve: Function) => {
     resolve(result)
-});
-}
+    });
+    }
 }
 ```
 
@@ -145,10 +147,10 @@ processResult(request: NetRequest, result: http.HttpResponse): Promise<http.Http
 
 ```javascript
 Net.getInstance().init({
-    baseUrl: "https://www.vipandroid.cn",
-    resultTag: ["data", "items"],
-    plugin:[new CustomNetPlugin()]
-})
+      baseUrl: "https://www.vipandroid.cn",
+      resultTag: ["data", "items"],
+      plugin:[new CustomNetPlugin()]
+    })
 ```
 
 **方法注入**
@@ -180,14 +182,14 @@ export class MyNetErrorInterceptor extends NetErrorInterceptor {
    * 返回code
    * */
 getCode():number{
-    return this.code
+  return this.code
 }
 
 /*
 * 返回message
 * */
 getMessage():string{
-    return this.message
+  return this.message
 }
 
 ```
@@ -603,7 +605,7 @@ getData():Promise<string> | undefined {
 
 ```typescript
 @GET("url")
-getData():Promise<TestModel> | undefined {
+ getData():Promise<TestModel> | undefined {
   return undefined
 }
 ```
@@ -612,7 +614,7 @@ getData():Promise<TestModel> | undefined {
 
 ```typescript
 @GET("url")
-getData():Promise<TestModel> | undefined {
+ getData():Promise<TestModel> | undefined {
   return undefined
 }
 ```
@@ -621,7 +623,7 @@ getData():Promise<TestModel> | undefined {
 
 ```typescript
 @POST("url")
-getData():Promise<TestModel> | undefined {
+ getData():Promise<TestModel> | undefined {
   return undefined
 }
 ```
@@ -630,7 +632,7 @@ getData():Promise<TestModel> | undefined {
 
 ```typescript
 @DELETE("url")
-getData():Promise<TestModel> | undefined {
+ getData():Promise<TestModel> | undefined {
   return undefined
 }
 ```
@@ -659,7 +661,7 @@ CONNECT
 
 ```typescript
 @NET("url", { method: http.RequestMethod.POST })
-getData():Promise<string> | undefined{
+ getData():Promise<string> | undefined{
   return undefined
 }
 ```
@@ -691,7 +693,7 @@ private getData():Promise<string> | undefined {
 
 ```typescript
 @GET("url")
-getData(data? : HttpOptions):Promise<string> | undefined {
+ getData(data? : HttpOptions):Promise<string> | undefined {
   return undefined
 }
 ```
@@ -727,7 +729,7 @@ private async doHttp(){
   isShowLoading:true//是否显示DialogLoading
 })
 @GET("url")
-getData():Promise<string> | undefined{
+ getData():Promise<string> | undefined{
   return undefined
 }
 ```

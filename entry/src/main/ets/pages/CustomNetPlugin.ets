@@ -16,6 +16,7 @@ export class CustomNetPlugin extends BaseNetPlugin {
   }
 
   error(request: NetRequest, response: http.HttpResponse, error: NetError): void {
+
   }
 
   prepareRequest(request: NetRequest): Promise<NetRequest> {
