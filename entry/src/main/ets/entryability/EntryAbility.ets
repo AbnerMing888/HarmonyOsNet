@@ -8,6 +8,8 @@ export default class EntryAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    EntryAbility.cx = this.context
+    EntryAbility.path = this.context.cacheDir
   }
 
   onDestroy(): void {

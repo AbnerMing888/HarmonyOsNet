@@ -1,12 +1,18 @@
 # HarmonyOsNet
 
+<p align="center">
+<img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/abner.jpg" width="100px" /><br/>
+<span style="font-size:12px;color:red;">扫码关注，千帆起航，共筑鸿蒙！</span>
+</p>
+
 **HarmonyOS网络库**，基于http封装而来，简化了请求方式，增加了常见的业务功能，支持同步、异步、装饰器模式，支持多种返回数据类型，Json、对象、数组，支持数据缓存，支持dialog加载，支持控制台请求信息格式化输出……
 
-**目前基于Remote Communication Kit（远场通信服务）封装的网络库已经上架，切换的朋友，可以[点击直达](https://ohpm.openharmony.cn/#/cn/detail/@abner%2Fhttp)。**
+目前官方主推Remote Communication Kit（远场通信服务），需要的切换的朋友，可以[点击直达](https://ohpm.openharmony.cn/#/cn/detail/@abner%2Fhttp)。
+和此库使用方式一样，除了初始化以及拦截器不同，其它可以无缝衔接！
 
 ## 开发环境
 
-DevEco Studio NEXT Developer Beta1,Build Version: 5.0.3.900
+DevEco Studio NEXT Developer Beta1,Build Version: 5.0.11.100
 
 Api版本：**12**
 
@@ -15,7 +21,7 @@ modelVersion：5.0.0
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.2</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.7</span></i></p>
 
 - 1、**支持全局初始化**
 - 2、 **支持统一的BaseUrl**
@@ -51,7 +57,7 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.1.2"}
+"dependencies": { "@abner/net": "^1.1.7"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
@@ -70,7 +76,7 @@ ohpm install @abner/net
 
 ```typescript
 Net.getInstance().init({
-  baseUrl: "https://www.vipandroid.cn", //设置全局baseurl
+  baseUrl: "https://www.xxx.cn", //设置全局baseurl
   connectTimeout: 10000, //设置连接超时
   readTimeout: 10000, //设置读取超时
   netErrorInterceptor: new MyNetErrorInterceptor(), //设置全局错误拦截,需要自行创建,可在这里进行错误处理
@@ -147,7 +153,7 @@ export class CustomNetPlugin extends BaseNetPlugin {
 
 ```javascript
 Net.getInstance().init({
-      baseUrl: "https://www.vipandroid.cn",
+      baseUrl: "https://www.xxx.cn",
       resultTag: ["data", "items"],
       plugin:[new CustomNetPlugin()]
     })
@@ -921,28 +927,6 @@ Net.getInstance().init({
 
 
 [鸿蒙精华技术文章列表](https://juejin.cn/column/7269566781248389178)
-
-## 一对一指导【收费】
-
-每个人的时间都是宝贵的，做为开发者的我，已经做到了技术上的免费开源，但仍然有很多问题无法做到及时处理。
-也考虑到，鸿蒙是一个新的系统，大家在使用上会遇到各种各样的问题，也为了能够及时的解决及回复问题，大家可以付费进行一对一指导。
-
-### 开源库使用指导
-
-<p><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/h_github_9.png" width="150px" /></p>
-
-**重要信息：一定要在付款时备注您的微信号，我会主动加您！切记！切记！！切记！！！**
-**诚信经营，来自一个北漂的老程序员心声！**
-
-**一杯饮料的钱，您可以获取权益如下**
-
-- 1、针对网络库使用1对1辅导使用，并跟踪相关问题排查。
-- 2、针对我的所有鸿蒙开源库，1对1辅导使用，并跟踪相关问题排查。
-- 3、涉及到我的开源库，您提的业务需求，率先第一时间满足，并及时针对性开发。
-- 4、未来我的鸿蒙开源库，可先遣体验。
-- 5、鸿蒙脚手架，正在研发中，可首批次体验使用。
-
-
 
 ## License
 

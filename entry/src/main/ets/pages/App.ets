@@ -6,12 +6,10 @@ import { CustomNetPlugin } from './CustomNetPlugin'
 export default class App extends AbilityStage {
   onCreate() {
     Net.getInstance().init({
-      baseUrl: "http://10.47.18.86:8888",
+      baseUrl: "https://www.wanandroid.com",
       plugin: [new CustomNetPlugin()],
-      isReadCache: true,
+      isReadCache: false,
       httpContext: this.context
     })
-    //Net.getInstance().addNetPlugins(new CustomNetPlugin())
-
   }
 }

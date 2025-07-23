@@ -7,16 +7,12 @@ import { BaseNetPlugin, Net, NetError, NetRequest } from '@abner/net';
 import http from '@ohos.net.http';
 
 export class CustomNetPlugin extends BaseNetPlugin {
-  willSendRequest(request: NetRequest): void {
-
-  }
-
   didReceive(result: http.HttpResponse): void {
 
   }
 
   error(request: NetRequest, response: http.HttpResponse, error: NetError): void {
-
+    request.getUrl()
   }
 
   prepareRequest(request: NetRequest): Promise<NetRequest> {
@@ -27,7 +23,6 @@ export class CustomNetPlugin extends BaseNetPlugin {
 
 
   processResult(request: NetRequest, result: http.HttpResponse): Promise<http.HttpResponse> {
-
     return new Promise((resolve: Function) => {
       resolve(result)
     });

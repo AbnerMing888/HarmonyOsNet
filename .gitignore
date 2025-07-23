@@ -10,3 +10,4 @@
 /.clang-format
 /.clang-tidy
 **/.test
+/build-profile.json5

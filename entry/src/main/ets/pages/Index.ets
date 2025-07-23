@@ -1,6 +1,6 @@
-import { DownloadTaskState, GET, Net, NetLoadingDialog, POST, ReturnDataType } from '@abner/net';
+import { ApiResult, DownloadTaskState, Net, NetLoadingDialog, POST, ReturnDataType } from '@abner/net';
+import { UploadTaskState } from '@abner/net/src/main/ets/model/UploadTaskState';
 import EntryAbility from '../entryability/EntryAbility';
-import promptAction from '@ohos.promptAction';
 
 class ApiTest {
   status?: number = 0
@@ -15,45 +15,15 @@ class ItemBean {
 @Component
 struct Index {
   @State message: string = 'Hello World';
-  private mCustomDialogController = new CustomDialogController({
-    builder: NetLoadingDialog({
-      loadingText: '请等待...'
-    }),
-    autoCancel: false,
-    customStyle: true,
-    alignment: DialogAlignment.Center
-  })
 
   build() {
     Row() {
       Column() {
-        Text("点击")
+        Text("测试")
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
-          .onClick(async () => {
-
-            // Net.get("/queryTest")
-            //   .setParams({
-            //     "userName": "AbnerMing",
-            //   }).requestString((result) => {
-            //   console.log("===success：" + result)
-            // }, (err) => {
-            //   console.log("===error：" + err.getMessage())
-            // })
-
-
-            // this.doHttp()
-            let a = await Net.post("https://www.wanandroid.com/user/login")
-              .setParams({ "username": "aa", "password": "aa" })
-              .setHeaders({ "as": "asas" })
-              .returnData<string>(ReturnDataType.STRING)
-            console.log("============" + JSON.stringify(a))
-            // .requestString(() => {
-            //   console.log("==========成功")
-            // }, (err) => {
-            //   console.log("==========" + JSON.stringify(err))
-            // })
-
+          .onClick(() => {
+            this.doHttp()
           })
       }
       .width('100%')
@@ -61,49 +31,17 @@ struct Index {
     .height('100%')
   }
 
-  private async doHttp() {
-    // let result =
-    //   await Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexCenter.php")// .returnData<ItemsBean>(ReturnDataType.OBJECT)
-    //     .setParams({ "index_type": -1, "size": 1 })
-    //     .returnData<ItemBean[]>()
-
-    let string = await this.test()
-    console.log("============" + string)
-
-  }
-
-  @POST("cert/AbnerGetIndexBanner.php",{ params: { "params": "nihao" }, isReturnJson: true, isShowLoading: true })
-  test(): Promise<string> | undefined {
-    return undefined
-  }
-
-  down() {
-    Net.downLoadFile("http://10.47.26.83:8088/json/14_151_2_8_1719217390000.mp4")
-      .setContext(EntryAbility.cx!)
-      .setFilePath(EntryAbility.path!)
-      .setProgress((receivedSize, totalSize) => {
-        //监听下载进度
-        console.error("===========Progress:" + receivedSize + "===" + totalSize)
+  private doHttp() {
+    Net.get("https://www.vipandroid.cn/cert/AbnerGetIndexBanner.php")
+      .showDialogLoading()
+      .returnData<ApiResult<ApiTest>>()
+      .then(() => {
+        console.log("==========success")
       })
-      .request((data) => {
-        console.error("===========result:" + JSON.stringify(data))
-        if (data == DownloadTaskState.COMPLETE) {
-          //下载完成
-        }
-      }, (err) => {
-        console.error("===========" + JSON.stringify(err))
+      .catch(() => {
+        console.log("==========fail")
       })
   }
 }
 
-
-class TestBean {
-  code?: number
-  message?: string
-  data?: string = "NIHAO"
-
-  log() {
-    console.log("================000")
-  }
-}
 
