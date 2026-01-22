@@ -8,8 +8,11 @@ export default class App extends AbilityStage {
     Net.getInstance().init({
       baseUrl: "https://www.wanandroid.com",
       plugin: [new CustomNetPlugin()],
-      isReadCache: false,
-      httpContext: this.context
+      isReadCache: true,
+      cacheBundleName:"com.abner.net",
+      httpContext: this.context,
+      isMemoryKVStore: false,
+      cacheDir: this.context.cacheDir + "/abner"
     })
   }
 }

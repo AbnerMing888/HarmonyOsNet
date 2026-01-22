@@ -10,18 +10,14 @@
 目前官方主推Remote Communication Kit（远场通信服务），需要的切换的朋友，可以[点击直达](https://ohpm.openharmony.cn/#/cn/detail/@abner%2Fhttp)。
 和此库使用方式一样，除了初始化以及拦截器不同，其它可以无缝衔接！
 
-## 开发环境
+## 支持Api
 
-DevEco Studio NEXT Developer Beta1,Build Version: 5.0.11.100
-
-Api版本：**12**
-
-modelVersion：5.0.0
+Api版本：>=12
 
 
 ## 主要功能点
 
-<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.7</span></i></p>
+<p align="center">当前版本：<i><span style="color:#ff0000;">1.1.8</span></i></p>
 
 - 1、**支持全局初始化**
 - 2、 **支持统一的BaseUrl**
@@ -57,7 +53,7 @@ ohpm install @abner/net
 方式二：在工程的oh-package.json5中设置三方包依赖，配置示例如下：
 
 ```
-"dependencies": { "@abner/net": "^1.1.7"}
+"dependencies": { "@abner/net": "^1.1.8"}
 ```
 
 <p align="center"><img src="https://vipandroid-image.oss-cn-beijing.aliyuncs.com/harmony/net/net_243_001.png" width="300"></p>
@@ -90,27 +86,34 @@ Net.getInstance().init({
 
 初始化属性，根据自己需要选择性使用。
 
-| 属性                      | 类型                              | 概述                                             |
-|-------------------------|---------------------------------|------------------------------------------------|
-| baseUrl                 | string                          | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
-| connectTimeout          | number                          | 可选参数，连接超时，默认10秒                                |
-| readTimeout             | number                          | 可选参数，读取超时，默认10秒                                |
-| netErrorInterceptor     | INetErrorInterceptor            | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
-| netHeaderInterceptor    | INetHeaderInterceptor           | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
-| header                  | Object{}                        | 可选参数，全局统一的公共头参数                                |
-| codeTag                 | {}                              | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
-| messageTag              | Array\<string\>                 | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
-| plugin                  | Array\<BaseNetPlugin\>          | 网络插件，类似于拦截器                                    |
-| resultTag               | Array\<string\>                 | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
-| messageTag              | Array\<string\>                 | 返回data层数据时，结果的返回的tag标签，如message errorMessage等等 |
-| codeTag                 | Record\<string, Object\>        | 返回data层数据时，状态的返回tag标签，如code status等等           |
-| isReadCache             | boolean                         | 是否读取缓存，默认不读取                                   |
-| httpContext             | Context                         | 使用缓存时，传递的上下文，用缓存时必填                            |
-| cacheBundleName         | string                          | 包名，     用缓存时必填                                 |
-| loadingDialog           | WrappedBuilder\<[]\>            | 全局的dialog                                      |
-| closeLog                | boolean                         | 是否关闭日志                                         |
-| params                  | Object / Record<string, Object> | 全局参数                                           |
-| isLoadingUseMainWindow  | boolean                         | 弹出的DialogLoading是否使用主window弹出，默认false不是        |
+| 属性                     | 类型                              | 概述                                             |
+|------------------------|---------------------------------|------------------------------------------------|
+| baseUrl                | string                          | 可选参数，一般标记为统一的请求前缀，也就是域名                        |
+| connectTimeout         | number                          | 可选参数，连接超时，默认10秒                                |
+| readTimeout            | number                          | 可选参数，读取超时，默认10秒                                |
+| netErrorInterceptor    | INetErrorInterceptor            | 可选参数，全局错误拦截器，需继承INetErrorInterceptor           |
+| netHeaderInterceptor   | INetHeaderInterceptor           | 可选参数，全局请求头拦截器，需继承INetHeaderInterceptor         |
+| header                 | Object{}                        | 可选参数，全局统一的公共头参数                                |
+| codeTag                | {}                              | 可选参数，状态的返回tag标签，如code status等等,用于业务成功失败判断      |
+| messageTag             | Array\<string\>                 | 可选参数，描述信息的返回tag标签，如message errorMessage等等      |
+| plugin                 | Array\<BaseNetPlugin\>          | 网络插件，类似于拦截器                                    |
+| resultTag              | Array\<string\>                 | 可选参数，主要用于直接返回data层数据对象，接口返回数据参数，比如data,items等等 |
+| messageTag             | Array\<string\>                 | 返回data层数据时，结果的返回的tag标签，如message errorMessage等等 |
+| codeTag                | Record\<string, Object\>        | 返回data层数据时，状态的返回tag标签，如code status等等           |
+| isReadCache            | boolean                         | 是否读取缓存，默认不读取                                   |
+| httpContext            | Context                         | 使用缓存时，传递的上下文，用缓存时必填                            |
+| cacheBundleName        | string                          | 包名，     用缓存时必填                                 |
+| loadingDialog          | WrappedBuilder\<[]\>            | 全局的dialog                                      |
+| closeLog               | boolean                         | 是否关闭日志                                         |
+| params                 | Object / Record<string, Object> | 全局参数                                           |
+| isLoadingUseMainWindow | boolean                         | 弹出的DialogLoading是否使用主window弹出，默认false不是        |
+| cacheDir               | string                          | 磁盘缓存路径                                         |
+| isMemoryKVStore        | boolean                         | 选择是键值对数据库，还是磁盘文件进行缓存                           |
+| isExceedDelete         | boolean                         | 超出最大存储量是否执行删除，默认执行删除                           |
+| isMinimumAccessDelete  | boolean                         | 是否是按照最少访问删除规则，默认是                              |
+| cacheTime              | number                          | 缓存时间                                           |
+| cacheSize              | number                          | 缓存大小                                           |
+
 
 ### 设置请求头拦截
 
@@ -422,6 +425,8 @@ CONNECT
 | setConversion             | Object                        | 转化对象，和原对象进行绑定，解决方法不能获取问题                                                                                                                                                                                                        |
 | setCacheType              | CacheType                     | 缓存类型，NO_NETWORK_READ_CACHE:无网络下直接读取缓存,FIRST_REMOTE：先请求网络，请求网络失败后再加载缓存，FIRST_CACHE：先加载缓存，缓存没有再去请求网络， CACHE_AND_REMOTE：先使用缓存，不管是否存在，仍然请求网络，会回调两次，CACHE_AND_REMOTE_DISTINCT：先使用缓存，不管是否存在，仍然请求网络，先把缓存回调，等网络请求回来发现数据是一样的就不会再返回，否则再返回 |
 | setPrecisionKeys          | string[]                      | 处理精度参数，传递字段即可                                                                                                                                                                                                                   |
+| setNetworkIntercept       | boolean                       | 是否拦截网络状态，默认拦截，也就是无网下，直接拦截，返回无网错误，不会发起请求                                                                                                                                                                                         |
+| setErrorIntercept         | boolean                       | 是否进行错误拦截，默认拦截，结合缓存使用，当发生错误时是否返回错误，false再有缓存时只走缓存不走错误                                                                                                                                                                            |
 
 代码调用如下：
 
@@ -549,25 +554,27 @@ CONNECT
 
 ### 7、各个方法调用
 
-| 方法                        | 类型                            | 概述                                                |
-|---------------------------|-------------------------------|---------------------------------------------------|
-| setHeaders                | Object                        | 单独添加请求头参数                                         |
-| setBaseUrl                | string                        | 单独替换BaseUrl                                       |
-| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post                                     |
-| setConnectTimeout         | number                        | 单独设置连接超时                                          |
-| setReadTimeout            | number                        | 单独设置读取超时                                          |
-| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型                                       |
-| setUsingCache             | boolean                       | 使用缓存,默认为true                                      |
-| setPriority               | number                        | 设置优先级 默认为1                                        |
-| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定                                    |
-| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等，此方法设置后，全局就不生效             |
-| setCodeTag                | Array\<string\>               | 状态码的返回tag标签，如code status等等，此方法设置后，全局就不生效          |
-| setMessageTag             | Array\<string\>               | 信息的返回tag标签，如message errorMessage等等，此方法设置后，全局就不生效  |
-| setContext                | Context                       | 设置上下文,用于下载文件                                      |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                           |
-| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                           |
-| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局                            |
-| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                                           |
+| 方法                        | 类型                            | 概述                                                    |
+|---------------------------|-------------------------------|-------------------------------------------------------|
+| setHeaders                | Object                        | 单独添加请求头参数                                             |
+| setBaseUrl                | string                        | 单独替换BaseUrl                                           |
+| setParams                 | string / Object / ArrayBuffer | 单独添加参数,用于post                                         |
+| setConnectTimeout         | number                        | 单独设置连接超时                                              |
+| setReadTimeout            | number                        | 单独设置读取超时                                              |
+| setExpectDataType         | http.HttpDataType             | 设置指定返回数据的类型                                           |
+| setUsingCache             | boolean                       | 使用缓存,默认为true                                          |
+| setPriority               | number                        | 设置优先级 默认为1                                            |
+| setUsingProtocol          | http.HttpProtocol             | 协议类型默认值由系统自动指定                                        |
+| setResultTag              | Array\<string\>               | 接口返回数据参数，比如data,items等等，此方法设置后，全局就不生效                 |
+| setCodeTag                | Array\<string\>               | 状态码的返回tag标签，如code status等等，此方法设置后，全局就不生效              |
+| setMessageTag             | Array\<string\>               | 信息的返回tag标签，如message errorMessage等等，此方法设置后，全局就不生效      |
+| setContext                | Context                       | 设置上下文,用于下载文件                                          |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                               |
+| setCustomDialogController | CustomDialogController        | 传递的dialog控制器，用于展示dialog                               |
+| setRequestInterceptors    | 无参                            | 是否是加载自身插件，也就是拦截器，不加载全局                                |
+| setNetPlugin              | BaseNetPlugin                 | 添加自身拦截器                                               |
+| setNetworkIntercept       | boolean                       | 是否拦截网络状态，默认拦截，也就是无网下，直接拦截，返回无网错误，不会发起请求               |
+| setErrorIntercept         | boolean                       | 是否进行错误拦截，默认拦截，结合缓存使用，当发生错误时是否返回错误，false再有缓存时只走缓存不走错误  |
 
 代码调用如下：
 
